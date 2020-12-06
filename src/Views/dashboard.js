@@ -1,41 +1,32 @@
-import React, { Component } from "react";
-import { Container, Header, Button, Content, ActionSheet, Text } from "native-base";
-var BUTTONS = [
-  { text: "Option 0", icon: "american-football", iconColor: "#2c8ef4" },
-  { text: "Option 1", icon: "analytics", iconColor: "#f42ced" },
-  { text: "Option 2", icon: "aperture", iconColor: "#ea943b" },
-  { text: "Delete", icon: "trash", iconColor: "#fa213b" },
-  { text: "Cancel", icon: "close", iconColor: "#25de5b" }
-];
-var DESTRUCTIVE_INDEX = 3;
-var CANCEL_INDEX = 4;
-export default class ActionSheetIconExample extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import React, { Component } from 'react';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+export default class AnatomyExample extends Component {
   render() {
     return (
       <Container>
-        <Header />
-        <Content padder>
-          <Button
-            onPress={() =>
-            ActionSheet.show(
-              {
-                options: BUTTONS,
-                cancelButtonIndex: CANCEL_INDEX,
-                destructiveButtonIndex: DESTRUCTIVE_INDEX,
-                title: "Testing ActionSheet"
-              },
-              buttonIndex => {
-                this.setState({ clicked: BUTTONS[buttonIndex] });
-              }
-            )}
-          >
-            <Text>Actionsheet</Text>
-          </Button>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Content>
+          <Text>
+            This is Content Section
+          </Text>
         </Content>
+        <Footer>
+          <FooterTab>
+            <Button full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }

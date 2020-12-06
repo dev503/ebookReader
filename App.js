@@ -2,7 +2,19 @@
  * @format
  * @flow strict-local
  */
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 
+const App = () => {
+  return (
+    <NavigationContainer>
+      {/* Rest of your app code */}
+    </NavigationContainer>
+  );
+};
+
+export default App;
 /*import React from 'react';
 import {
   SafeAreaView,
