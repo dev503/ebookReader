@@ -1,12 +1,9 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
  * @flow strict-local
  */
 
-import React from 'react';
+/*import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -23,6 +20,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
 
 const App: () => React$Node = () => {
   return (
@@ -109,6 +107,6 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-});
+});*/
 
-export default App;
+//export default App;
