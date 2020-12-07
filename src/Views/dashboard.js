@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
-export default class AnatomyExample extends Component {
-  render() {
+
+export default AnatomyExample = ({navigation, route}) => {  
     return (
       <Container>
         <Header>
@@ -17,6 +17,7 @@ export default class AnatomyExample extends Component {
         </Header>
         <Content>
           <Text>
+            {route.params.nombre}
             This is Content Section
           </Text>
         </Content>
@@ -29,5 +30,4 @@ export default class AnatomyExample extends Component {
         </Footer>
       </Container>
     );
-  }
 }

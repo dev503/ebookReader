@@ -5,12 +5,26 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import InlineLabelExample from './src/Views/dashboard';
+import Login from './src/Views/login';
+
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <InlineLabelExample/>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          name="Dashboard"
+          component={InlineLabelExample}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
