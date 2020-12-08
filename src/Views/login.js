@@ -18,24 +18,23 @@ export default Login = ({ navigation }) => {
         </Row>   
         <Row style={{ flex: 1, flexDirection: 'row'}}>
           <Col >
-        <Form>
-          <Item inlineLabel>
-            <Label>Username</Label>
-            <Input value={name} onChange={e => setName(e.target.value)} />
-          </Item>
-          <Item inlineLabel last>
-            <Label>Password</Label>
-            <Input />
-          </Item>
-          <Button primary full
-            onPress={() =>
-              navigation.navigate('Dashboard', { nombre: name })
-            }
-          >
-            <Text> Sign In </Text>
-          </Button>
-        </Form>
-        </Col>
+            <Form>
+              <Item inlineLabel>
+                <Label>Username</Label>
+                <Input value={name} onChange={e => setName(e.target.value)} />
+              </Item>
+              <Item inlineLabel last>
+                <Label>Password</Label>
+                <Input />
+              </Item>
+              <Button primary full
+                onPress={() =>
+                  navigation.navigate('Dashboard', { nombre: name })
+                }>
+                <Text> Sign In </Text>
+              </Button>
+            </Form>
+          </Col>
         </Row>
         </Grid>
       </Content>
