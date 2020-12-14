@@ -1,33 +1,16 @@
 import React from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import Drawer from '../Components/drawer'
+//import EpubReader from '@sbrighiu/epubjs-rn';
 
 export default AnatomyExample = ({navigation, route}) => {  
+
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content>
-          <Text>
-            {route.params.nombre}
-            This is Content Section
-          </Text>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+
+          <Drawer />
+
       </Container>
     );
 }
+
