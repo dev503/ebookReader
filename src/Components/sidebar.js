@@ -25,12 +25,12 @@ export default Sidebar = (props) => (
           <List button>
             <ListItem full button>
             
-                <Text style={{ fontSize:18, color: 'black'}}>Epub Reader s</Text>
+                <Text style={{ fontSize:18, color: 'black'}}>Libros</Text>
       
             </ListItem>
             <ListItem>
         
-                <Text style={{ fontSize:18, color: 'black'}}>Epub Reader</Text>
+                <Text style={{ fontSize:18, color: 'black'}}>Extra</Text>
        
             </ListItem>
           </List>
