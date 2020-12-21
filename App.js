@@ -7,6 +7,7 @@ import * as React from 'react';
 import InlineLabelExample from './src/Views/dashboard';
 import Login from './src/Views/login';
 
+import { WebView } from 'react-native-webview';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 

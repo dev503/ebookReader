@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
+import { WebView } from 'react-native-webview';
 import { Header, Left, Button, Icon, Right, Body, Title, Drawer, Content,Footer, FooterTab  } from 'native-base'
 import SideBar from './sidebar'
+import { LocalHtml } from "../Reader/input.html";
 
+const PolicyHTML = require('../Reader/input.html');
 export default class AppHeader extends Component {
   closeDrawer() {
     this.drawer._root.close()
@@ -10,6 +13,8 @@ export default class AppHeader extends Component {
   openDrawer() {
     this.drawer._root.open()
   }
+
+  
   render() {
     return (
       <Drawer
@@ -32,12 +37,7 @@ export default class AppHeader extends Component {
           </Right>
         </Header>
 
-        <Content >
-          <Text>
-            This is Content Section
-          </Text>
-        </Content>
-
+        <WebView source={{ uri: 'https://reactnative.dev/' }} />
         <Footer>
           <FooterTab>
             <Button full>
