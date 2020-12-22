@@ -13,7 +13,7 @@
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
-    "@sbrighiu/epubjs-rn": "^0.3.10",
+    
     "native-base": "^2.13.15",
     "react": "16.13.1",
     "react-native": "0.63.4",
