@@ -1,69 +1,24 @@
-import React, { Component } from 'react';
-// import { Text } from 'react-native';
-import {Header, Text, Left, Button, Icon, Right, Body, Title, Drawer, Content,Footer, FooterTab  } from 'native-base'
-import SideBar from '../Components/sidebar'
-// import HeaderCont from '../Components/header'
+import React from 'react';
 
-// const openDrawer () => {
-//    this.drawer._root.open() 
-//   };
+import { Text, List, ListItem } from 'native-base';
 
-// render() { 
-//   return ( 
-//   <Drawer ref={(ref) => { this.drawer = ref; }} 
-//   content={
-//   <SideBar navigator={
-//     this.navigator} />} onClose={() => this.closeDrawer()} >
-//        // Main View 
-//        </Drawer> ); 
-//        } 
-//       }
+const Drawer = ({ navigation }) => {
+  return (
+    <List button>
+      <ListItem full button>
+        <Text style={{ fontSize: 18, color: 'black' }}>Libros</Text>
+      </ListItem>
+      <ListItem>
+        <Text style={{ fontSize: 18, color: 'black' }}>Extra</Text>
+      </ListItem>
+      <ListItem
+        onPress={() => {
+          navigation.navigate('Login');
+        }}>
+        <Text style={{ fontSize: 18, color: 'black' }}>Cerrar sesión</Text>
+      </ListItem>
+    </List>
+  );
+};
 
-
-export default class AppHeader extends Component {
-  closeDrawer() {
-    this.drawer._root.close()
-  }
-  openDrawer() {
-    this.drawer._root.open()
-  }
-  render() {
-    return (
-      <Drawer
-       ref={(ref) => { this.drawer = ref; }}
-        content={<SideBar />}
-        onClose={() => this.closeDrawer()}>
-        {/* <HeaderCont>
-          </HeaderCont> */}
-        <Header>
-          <Left>
-            <Button transparent onPress={() => this.openDrawer()}>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-     
-          {/* <Right>
-            <Button transparent>
-              <Icon name="bulb" />
-            </Button>
-          </Right> */}
-        </Header>
-
-        <Content >
-          <Text>
-            This is Content Section
-          </Text>
-        </Content>
-
-        <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Drawer>
-    )
-  }
-}
-module.exports = AppHeader
+export default Drawer;
