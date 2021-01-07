@@ -57,7 +57,7 @@ export default Login = ({ navigation }) => {
                   onPress={() => navigation.navigate('Register')}>
                   <Text>Registro</Text>
                 </Button>
-                <Text onPress={() => navigation.navigate('UpdatePassword')}>
+                <Text onPress={() => navigation.navigate('ForgotPassword')}>
                   Olvidé mi contraseña
                 </Text>
               </Form>
