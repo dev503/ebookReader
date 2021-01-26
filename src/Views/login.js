@@ -15,16 +15,19 @@ import {
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const Login = ({navigation}) => {
-  // Función para mandar datos del login 
+  // Función para mandar datos del login
   function sendDataLogin() {
     axios
-      .post('http://192.168.1.7:8080/ebookReaderBackend/backend/public/user/search', {
-        email: 'mauricio25luna@gmail.com',
-        password: '12345',
-        token: '12345',
-      })
+      .post(
+        'http://backoffice.moondevsv.com/Backend/public/user/search',
+        {
+          email: 'mauricio25luna@gmail.com',
+          password: '12345',
+          token: '12345'
+        },
+      )
       .then((res) => {
-        navigation.reset('dashboard');
+        navigation.reset({index:0, routes:[{name: 'Dashboard'}]});
       })
       .catch((err) => {
         console.error(err);
@@ -52,7 +55,7 @@ const Login = ({navigation}) => {
             <Col>
               <Form>
                 <Item inlineLabel>
-                  <Label>Email</Label>
+                  <Label>Email/ Username</Label>
                   <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
