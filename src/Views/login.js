@@ -24,8 +24,8 @@ const Login = ({navigation}) => {
       .post(
         'http://backoffice.moondevsv.com/Backend/public/user/search',
         {
-          email: 'username',
-          password: 'password',
+          email: username,
+          password: password,
           token: '12345',
         },
       )
@@ -60,14 +60,14 @@ const Login = ({navigation}) => {
                 <Item inlineLabel>
                   <Label>Email</Label>
                   <TextInput
-                    value={username}
-                    onChange={(event) => setUsername(event.target.value)}
+
+                    onChangeText={(value) => setUsername(value)}
                   />
                 </Item>
                 <Item inlineLabel last>
                   <Label>Contraseña</Label>
-                  <TextInput secureTextEntry={true} value={password}
-                    onChange={(event) => setPassword(event.target.value)}
+                  <TextInput secureTextEntry={true}
+                    onChangeText={(value) => setPassword(value)}
                   />
                 </Item>
                 <Button primary full onPress={() => sendDataLogin()}>
