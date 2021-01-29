@@ -13,6 +13,8 @@ import {
   Body,
   Icon,
   Text,
+  List,
+  ListItem
 } from 'native-base';
 import Drawer from './drawer';
 
@@ -39,10 +41,21 @@ const Dashboard = ({ navigation }) => {
           </Right>
         </Header>
         <Content>
+        <List>
+            <ListItem  onPress={() => navigation.navigate('Reader')}>
+              <Text>Libro1</Text>
+            </ListItem>
+            <ListItem  onPress={() => navigation.navigate('Reader')}>
+              <Text>Libro 2</Text>
+            </ListItem>
+            <ListItem  onPress={() => navigation.navigate('Reader')}>
+              <Text>Libro 3</Text>
+            </ListItem>
+          </List>
           {/* <Text>This is Content Section</Text> */}
-          <Button onPress={() => navigation.navigate('Reader')}>
+          {/* <Button onPress={() => navigation.navigate('Reader')}>
             <Text>Show reader</Text>
-          </Button>
+          </Button> */}
         </Content>
         <Footer>
           <FooterTab>

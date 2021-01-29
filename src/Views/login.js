@@ -19,18 +19,17 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
   // Función para mandar datos del login
   function sendDataLogin() {
-    console.log(username, password);
+    // console.log(username, password);
     axios
-      .post(
-        'http://backoffice.moondevsv.com/Backend/public/user/search',
-        {
-          email: username,
-          password: password,
-          token: '12345',
-        },
-      )
+      .post('http://backoffice.moondevsv.com/Backend/public/user/search', {
+        email: username,
+        password: password,
+        // email: 'mauricio25luna@gmail.com',
+        // password: '12345',
+        token: '12345',
+      })
       .then((res) => {
-        navigation.reset({index:0, routes:[{name: 'Dashboard'}]});
+        navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
       })
       .catch((err) => {
         console.error(err);
@@ -57,16 +56,18 @@ const Login = ({navigation}) => {
           <Row style={{flex: 1, flexDirection: 'row'}}>
             <Col>
               <Form>
-                <Item inlineLabel>
-                  <Label>Email</Label>
+                <Item stackedLabel>
+                  <Label>Correo electrónico</Label>
                   <TextInput
-
+                    autoCorrect={false}
+                    autoFocus={true}
                     onChangeText={(value) => setUsername(value)}
                   />
                 </Item>
-                <Item inlineLabel last>
+                <Item stackedLabel last>
                   <Label>Contraseña</Label>
-                  <TextInput secureTextEntry={true}
+                  <TextInput
+                    secureTextEntry={true}
                     onChangeText={(value) => setPassword(value)}
                   />
                 </Item>
