@@ -3,7 +3,7 @@ import {WebView} from 'react-native-webview';
 import * as axios from 'axios';
 import {FlatList} from 'react-native-gesture-handler';
 
-const Reader = ({navigation}) => {
+const Reader = ({navigation, route}) => {
   function listarLibros() {
     const [libros, setLibros] = useState([]);
 
@@ -27,7 +27,7 @@ const Reader = ({navigation}) => {
     <WebView
     source={{
       // uri: 'https://rf-stuffs.s3-us-west-2.amazonaws.com/input.html',
-      uri: 'http://backoffice.moondevsv.com/Reader/index.php?idbook=1&fbclid=IwAR1pABWchF4ylWzouW9Nz-0kL_km-k9F-E47xFi6MAgub2WxLh7EB4f43p0'
+      uri: route.params.url
       
     }}
   />
