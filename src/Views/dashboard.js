@@ -43,13 +43,13 @@ const Dashboard = ({ navigation }) => {
         <Content>
         <List>
             <ListItem  onPress={() => navigation.navigate('Reader')}>
-              <Text>Libro1</Text>
+              <Text>Los Perros de la Guerra</Text>
             </ListItem>
             <ListItem  onPress={() => navigation.navigate('Reader')}>
-              <Text>Libro 2</Text>
+              <Text>Entre Sonrisas y risas v2</Text>
             </ListItem>
             <ListItem  onPress={() => navigation.navigate('Reader')}>
-              <Text>Libro 3</Text>
+              <Text>The Princes Saves Herself in This One</Text>
             </ListItem>
           </List>
           {/* <Text>This is Content Section</Text> */}
