@@ -13,7 +13,7 @@ const Drawer = ({ navigation }) => {
       </ListItem>
       <ListItem
         onPress={() => {
-          navigation.navigate('Login');
+          navigation.navigate('Home');
         }}>
         <Text style={{ fontSize: 18, color: 'black' }}>Cerrar sesión</Text>
       </ListItem>

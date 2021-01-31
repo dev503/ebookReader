@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Container,
   Content,
@@ -9,6 +9,7 @@ import {
   Button,
   Text,
 } from 'native-base';
+import {TextInput} from 'react-native';
 
 const Register = ({ navigation }) => {
   return (
@@ -17,7 +18,7 @@ const Register = ({ navigation }) => {
         <Form>
           <Item stackedLabel>
             <Label>Nombre</Label>
-            <Input
+            <TextInput
               autoCapitalize="words"
               autoCorrect={false}
               autoFocus={true}
@@ -30,6 +31,9 @@ const Register = ({ navigation }) => {
           <Item stackedLabel>
             <Label>Usuario</Label>
             <Input autoCorrect={false} />
+          </Item>
+          <Item stackedLabel>
+           {/* La vista debe ir aqui */}
           </Item>
           <Item stackedLabel>
             <Label>Contraseña</Label>

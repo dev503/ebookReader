@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import * as axios from 'axios';
+import {TextInput} from 'react-native';
 import {
   Container,
-  Header,
   Content,
   Form,
   Item,
@@ -15,19 +15,21 @@ import {
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const Login = ({navigation}) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   // Función para mandar datos del login
   function sendDataLogin() {
+    // console.log(username, password);
     axios
-      .post(
-        'http://backoffice.moondevsv.com/Backend/public/user/search',
-        {
-          email: 'mauricio25luna@gmail.com',
-          password: '12345',
-          token: '12345'
-        },
-      )
+      .post('http://backoffice.moondevsv.com/Backend/public/user/search', {
+        email: username,
+        password: password,
+        // email: 'mauricio25luna@gmail.com',
+        // password: '12345',
+        token: '12345',
+      })
       .then((res) => {
-        navigation.reset({index:0, routes:[{name: 'Dashboard'}]});
+        navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
       })
       .catch((err) => {
         console.error(err);
@@ -36,7 +38,7 @@ const Login = ({navigation}) => {
 
   const uri =
     'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png';
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   return (
     <Container>
       <Content contentContainerStyle={{flex: 1}} style={{padding: 10}}>
@@ -54,16 +56,20 @@ const Login = ({navigation}) => {
           <Row style={{flex: 1, flexDirection: 'row'}}>
             <Col>
               <Form>
-                <Item inlineLabel>
-                  <Label>Email/ Username</Label>
-                  <Input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                <Item stackedLabel>
+                  <Label>Correo electrónico</Label>
+                  <TextInput
+                    autoCorrect={false}
+                    autoFocus={true}
+                    onChangeText={(value) => setUsername(value)}
                   />
                 </Item>
-                <Item inlineLabel last>
+                <Item stackedLabel last>
                   <Label>Contraseña</Label>
-                  <Input />
+                  <TextInput
+                    secureTextEntry={true}
+                    onChangeText={(value) => setPassword(value)}
+                  />
                 </Item>
                 <Button primary full onPress={() => sendDataLogin()}>
                   <Text>Iniciar sesión</Text>
