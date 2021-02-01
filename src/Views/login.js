@@ -33,6 +33,7 @@ const Login = ({navigation}) => {
       })
       .catch((err) => {
         console.error(err);
+        
       });
   }
 
@@ -64,8 +65,8 @@ const Login = ({navigation}) => {
                     onChangeText={(value) => setUsername(value)}
                   />
                 </Item>
-                <Item stackedLabel last>
-                  <Label>Contraseña</Label>
+                <Item stackedLabel last  style={{marginBottom:10}}>
+                  <Label>Contraseñas</Label>
                   <TextInput
                     secureTextEntry={true}
                     onChangeText={(value) => setPassword(value)}
@@ -83,6 +84,8 @@ const Login = ({navigation}) => {
                 <Text onPress={() => navigation.navigate('ForgotPassword')}>
                   Olvidé mi contraseña
                 </Text>
+                <Label></Label>
+
               </Form>
             </Col>
           </Row>

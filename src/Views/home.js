@@ -42,7 +42,12 @@ const Home = ({navigation}) => {
         </View>
         <View style={{ alignItems: 'center', marginTop: 16}}>
           <Button info onPress={() => navigation.navigate('Login')}>
+  
             <Text>Start</Text>
+          </Button>
+          <Button info onPress={() => navigation.reset({index: 0, routes: [{name: 'Dashboard'}]})}>
+  
+            <Text>Start 2</Text>
           </Button>
         </View>
       </View>
