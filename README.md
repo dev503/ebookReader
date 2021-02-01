@@ -16,4 +16,10 @@ npm install
 - Arrancar
 npx react-native run-ios / run-android
 
+Si se tiene errores al ejecutar puede correr el siguiente comando
+npm install -i -g --force react-native-cli
+
+y luego 
+react-native link
+
 NativeBase.IO
