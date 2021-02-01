@@ -53,18 +53,18 @@ const Dashboard = ({ navigation }) => {
         </ListItem>
       )
     } else {
-      var tittles = null
+      var view = null
       let booksListArray = [] 
       for (let index = 0; index < booksito.length; index++) {
         console.log(booksito[index])
-        tittles = <ListItem key={booksito[index]["id"]} onPress={() => navigation.navigate('Reader',{url: booksito[index]["url"]})}>
+        view = <ListItem key={booksito[index]["id"]} onPress={() => navigation.navigate('Reader',{url: booksito[index]["url"]})}>
                     <Text style={{fontSize: 23, fontWeight: "bold", flex:3}} >{booksito[index]["title"]} </Text>
                     <Body>
                       <Label style={{ }}>{booksito[index]["author"]}</Label>
                       <Label style={{ color: '#6c6c6c' }}>{booksito[index]["size"]} </Label>
                     </Body>
                   </ListItem>;
-        booksListArray.push(tittles)
+        booksListArray.push(view)
       }
       
       return (booksListArray)
