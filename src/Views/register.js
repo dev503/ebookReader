@@ -1,94 +1,136 @@
-import React, {useState} from 'react';
-import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Label,
-  Input,
-  Button,
-  Text,
-  Thumbnail,
-  H1,
-} from 'native-base';
-import {
-  StyleSheet,
-  ImageBackground,
-  View,
-  TextInput,
-  SafeAreaView,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import * as axios from 'axios';
+
+import {Form, Item, Label, Button, Text, H1, Icon} from 'native-base';
+import {StyleSheet, ImageBackground, View, TextInput} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
 
+/* Obtiene instante de tiempo justo ahora */
+const now = new Date();
+
 const Register = ({navigation}) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedGender, setSelectedGender] = useState('mujer');
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState('');
+
+  /* Cuando sea que password o passwordConfirmation cambien se revisa a ver si coinciden */
+  /* Sino coinciden se setea un error */
+  useEffect(() => {
+    if (password !== passwordConfirmation) {
+      if (error === '') {
+        setError('Contraseñas no coinciden');
+      }
+    } else {
+      if (error !== '') {
+        setError('');
+      }
+    }
+  }, [password, passwordConfirmation]);
+
+  function sendData() {
+    const body = {
+      username: username,
+      name: name,
+      password: password,
+      gender: selectedGender,
+      /* Arma string de fecha DD-MM-YYYY a partir de la fecha seleccionada y del instante de ahora*/
+      /* getMonth() tiene +1 porque obtiene los meses a partir de 0 y no de 1 */
+      /* Los padStart() les añaden ceros a la izquierda si fueran necesarios */
+      registration_date: `${now.getFullYear()}-${(now.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`,
+      birthdate: `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${selectedDate
+        .getDate()
+        .toString()
+        .padStart(2, '0')}`,
+      email: email,
+      token: '12345',
+    };
+    // console.log(body);
+    axios
+      .post(
+        'http://backoffice.moondevsv.com/Backend/public/user/register',
+        body,
+      )
+      .then((res) => {
+        navigation.reset({index: 0, routes: [{name: 'Login'}]});
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
   return (
     <View style={styles.container}>
       <ImageBackground source={fondo} style={styles.image}>
-        <View style={styles.logoIco}>
-          <H1> Registrate</H1>
-       
+        <View style={{alignItems: 'center'}}>
+          <H1 style={styles.h1}> Registrate</H1>
         </View>
         <View style={styles.form}>
           <Form>
             <Item fixedLabel>
-              {/* <Label style={styles.label}>Correo electrónico</Label> */}
               <TextInput
                 autoCorrect={false}
                 onChangeText={(value) => setUsername(value)}
                 style={styles.textInput}
                 placeholder="Usuario"
-                placeholderTextColor = "#ffffff"
+                placeholderTextColor="#ffffff"
               />
             </Item>
             <Item fixedLabel>
-              {/* <Label style={styles.label}>Correo electrónico</Label> */}
               <TextInput
                 autoCorrect={false}
-                onChangeText={(value) => setUsername(value)}
+                onChangeText={(value) => setName(value)}
                 style={styles.textInput}
                 placeholder="Nombre"
-                placeholderTextColor = "#ffffff"
+                placeholderTextColor="#ffffff"
               />
             </Item>
             <Item fixedLabel>
-              {/* <Label style={styles.label}>Contraseña</Label> */}
               <TextInput
                 secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
                 style={styles.textInput}
                 placeholder="Contraseña"
-                placeholderTextColor = "#ffffff"
+                placeholderTextColor="#ffffff"
               />
             </Item>
             <Item fixedLabel>
-              {/* <Label style={styles.label}>Confirmar contraseña</Label> */}
               <TextInput
                 secureTextEntry={true}
-                onChangeText={(value) => setPassword(value)}
+                onChangeText={(value) => setPasswordConfirmation(value)}
                 style={styles.textInput}
                 placeholder="Confirmar contraseña"
-                placeholderTextColor = "#ffffff"
+                placeholderTextColor="#ffffff"
               />
             </Item>
             <Item>
               <View style={styles.container}>
-              <Label>Sexo</Label>
+                <Label style={styles.label}>Sexo</Label>
                 <Picker
-                  selectedValue={selectedValue}
-                  style={{height: 50, width: 150}}
+                  selectedValue={selectedGender}
+                  style={{
+                    height: 40,
+                    width: 180,
+                    marginHorizontal: 50,
+                    color: '#004fb4',
+                    fontSize: 15,
+                  }}
+                
                   onValueChange={(itemValue, itemIndex) =>
-                    setSelectedValue(itemValue)
+                    setSelectedGender(itemValue)
                   }>
                   <Picker.Item label="Mujer" value="mujer" />
                   <Picker.Item label="Hombre" value="hombre" />
@@ -96,9 +138,22 @@ const Register = ({navigation}) => {
               </View>
             </Item>
             <Item>
-              <View>
-              <Label>Fecha de nacimiento</Label>
-                <Text onPress={() => {setShowDatePicker(true)}}>{`${selectedDate.getDate().toString().padStart(2, '0')}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getFullYear()}`}</Text>
+              <View style={{marginTop: 5}}>
+                <Label style={styles.label}>Fecha de nacimiento</Label>
+                <View style= {{flexDirection: 'row', alignItems: 'center', marginHorizontal: 60}}>
+                <Text
+                style={{marginTop: 5, color: '#004fb4', marginBottom: 8, marginRight: 50 }}
+                  onPress={() => {
+                    setShowDatePicker(true);
+                  }}>
+                  {`${selectedDate.getDate().toString().padStart(2, '0')}-${(
+                  selectedDate.getMonth() + 1
+                )
+                  .toString()
+                  .padStart(2, '0')}-${selectedDate.getFullYear()}`}</Text>
+                  <Icon name='caret-down' style={{fontSize:12, flexDirection: 'row'}}>
+
+                  </Icon>
                 {showDatePicker && (
                   <DateTimePicker
                     onChange={(event, value) => {
@@ -111,25 +166,22 @@ const Register = ({navigation}) => {
                   />
                 )}
               </View>
+              </View>
             </Item>
             <Item fixedLabel>
-              {/* <Label style={styles.label}>Correo electrónico</Label> */}
               <TextInput
                 autoCorrect={false}
-                onChangeText={(value) => setUsername(value)}
+                onChangeText={(value) => setEmail(value)}
                 style={styles.textInput}
                 placeholder="Correo electrónico"
-                placeholderTextColor = "#ffffff"
+                placeholderTextColor="#ffffff"
               />
             </Item>
           </Form>
         </View>
 
         <View>
-          <Button
-            rounded
-            onPress={() => navigation.navigate('Register')}
-            style={styles.registro}>
+          <Button rounded onPress={() => sendData()} style={styles.registro}>
             <Text
               style={{
                 color: '#f48c1c',
@@ -143,42 +195,6 @@ const Register = ({navigation}) => {
         </View>
       </ImageBackground>
     </View>
-    // <Container>
-    //   <Content>
-    //     <Form>
-    //       <Item stackedLabel>
-    //         <Label>Nombre</Label>
-    //         <TextInput
-    //           autoCapitalize="words"
-    //           autoCorrect={false}
-    //           autoFocus={true}
-    //         />
-    //       </Item>
-    //       <Item stackedLabel>
-    //         <Label>Correo electrónico</Label>
-    //         <Input keyboardType="email-address" autoCorrect={false} />
-    //       </Item>
-    //       <Item stackedLabel>
-    //         <Label>Usuario</Label>
-    //         <Input autoCorrect={false} />
-    //       </Item>
-    //       <Item stackedLabel>
-    //        {/* La vista debe ir aqui */}
-    //       </Item>
-    //       <Item stackedLabel>
-    //         <Label>Contraseña</Label>
-    //         <Input secureTextEntry={true} autoCorrect={false} />
-    //       </Item>
-    //       <Item stackedLabel>
-    //         <Label>Confirmar contraseña</Label>
-    //         <Input secureTextEntry={true} autoCorrect={false} />
-    //       </Item>
-    //       <Button full onPress={() => navigation.navigate('Dashboard')}>
-    //         <Text>Enviar</Text>
-    //       </Button>
-    //     </Form>
-    //   </Content>
-    // </Container>
   );
 };
 const styles = StyleSheet.create({
@@ -191,39 +207,38 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
-  logoIco: {
+  h1: {
     alignItems: 'center',
+    fontSize: 25,
+    fontFamily: 'Montserrat-Bold',
+    color: '#ffffff',
+    fontWeight: 'bold',
   },
   form: {
     marginHorizontal: 20,
+    fontFamily: 'Montserrat-Bold',
   },
   label: {
     fontSize: 15,
-    fontFamily: 'Montserrat-Bold',
     color: '#ffffff',
   },
   textInput: {
     fontSize: 15,
-    fontFamily: 'Montserrat-Bold',
+
     color: '#004fb4',
-    
   },
-  fogotpass: {
-    fontSize: 15,
-    fontFamily: 'Montserrat-Medium',
-    margin: 10,
-    alignItems: 'center',
-    marginHorizontal: 60,
-    color: '#0454b4',
-    fontWeight: 'bold',
-  },
- 
+
   registro: {
     marginHorizontal: 50,
     width: 225,
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 15,
     backgroundColor: '#ffffff',
+  },
+  error: {
+    color: 'red',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 export default Register;

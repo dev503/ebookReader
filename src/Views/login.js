@@ -62,7 +62,7 @@ const Login = ({navigation}) => {
             <Text
               onPress={() => navigation.navigate('ForgotPassword')}
               style={styles.fogotpass}>
-              Olvidé mi contraseña
+              ¿Olvidó su contraseña?
             </Text>
           </Form>
         </View>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 15,
     fontFamily: 'Montserrat-Bold',
-    color: '#ffffff',
+    color: '#004fb4',
   },
   fogotpass: {
     fontSize: 15,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: 'center',
     marginHorizontal: 60,
-    color: '#0454b4',
+    color: '#004fb4',
     fontWeight: 'bold',
   },
   inicio: {
