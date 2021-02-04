@@ -6,7 +6,7 @@ import {StyleSheet, ImageBackground, View, TextInput} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const logo = require('../img/CC-Cenpromype-06.png');
+
 const fondo = require('../img/CC-Cenpromype-03.png');
 
 /* Obtiene instante de tiempo justo ahora */
