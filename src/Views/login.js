@@ -14,10 +14,10 @@ const Login = ({navigation}) => {
     console.log(username, password);
     axios
       .post('http://backoffice.moondevsv.com/Backend/public/user/search', {
-        // email: username,
-        // password: password,
-        email: 'mauricio25luna@gmail.com',
-        password: '12345',
+        email: username,
+        password: password,
+        // email: 'mauricio25luna@gmail.com',
+        // password: '12345',
         token: '12345',
       })
       .then((res) => {
