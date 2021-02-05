@@ -11,7 +11,7 @@ import {Form, Item, Label, Button, Text, Thumbnail} from 'native-base';
 
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -42,7 +42,6 @@ const Login = ({navigation}) => {
           <Thumbnail square large source={logo} style={styles.logoIco} />
         </View>
         <View style={styles.form}>
-          <Form>
             <Item style={styles.items} fixedLabel>
               {/* <Label style={styles.label}>Correo electrónico</Label> */}
               <TextInput
@@ -51,52 +50,53 @@ const Login = ({navigation}) => {
                 onChangeText={(value) => setUsername(value)}
                 placeholder="Correo/Usuario"
                 placeholderTextColor="#ffffff"
+                style= {styles.text}
               />
             </Item>
-            <Item fixedLabel>
+            <Item fixedLabel style={styles.items}>
               {/* <Label style={styles.label}>Contraseña</Label> */}
               <TextInput
                 secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
                 placeholder="Contraseña"
                 placeholderTextColor="#ffffff"
+                style= {styles.text}
               />
             </Item>
             <Text
               onPress={() => navigation.navigate('ForgotPassword')}
-              style={styles.fogotpass}>
+              style={[styles.items, {marginTop: 16}]}>
               ¿Olvidó su contraseña?
             </Text>
-          </Form>
         </View>
-        <View style={styles.btnArea}>
-          <Button rounded onPress={() => sendDataLogin()} style={styles.inicio}>
-            <Text
-              style={{
-                fontFamily: 'Montserrat-Bold',
-                fontSize: 15,
-                fontWeight: 'bold',
-              }}>
-              Iniciar sesión
-            </Text>
-          </Button>
-        </View>
-        <View>
-          <Button
-            rounded
-            onPress={() => navigation.navigate('Register')}
-            style={styles.registro}>
-            <Text
-              style={{
-                color: '#f48c1c',
-                fontFamily: 'Montserrat-Bold',
-                fontSize: 15,
-                fontWeight: 'bold',
-              }}>
-              Registro
-            </Text>
-          </Button>
-        </View>
+          <View  style={styles.btncontainer}>
+            <Button rounded onPress={() => sendDataLogin()} style={styles.button}>
+              <Text
+                style={{
+                  fontFamily: 'Montserrat-Bold',
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                }}>
+                Iniciar sesión
+              </Text>
+            </Button>
+            <Button
+              rounded
+              
+              onPress={() => navigation.navigate('Register')}
+              style={[styles.button, {backgroundColor: '#fff'}]}>
+              <Text
+                style={{
+                  color: '#f48c1c',
+                  fontFamily: 'Montserrat-Bold',
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  
+                }}>
+                Registro
+              </Text>
+            </Button>
+          </View>
       </ImageBackground>
     </View>
   );
@@ -113,21 +113,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoIco: {
-    width: 275,
-    height: 240,
-    marginTop: 35,
+  width: 0.6 * width,
+  height: 0.6 * width
   },
   items: {
-    width: width,
-    marginHorizontal: 25,
+   textAlign: 'center',
     fontSize: 18,
     fontFamily: 'Montserrat-Bold',
     color: '#004fb4',
     fontWeight: 'bold',
   },
-  // form: {
-  //   marginHorizontal: 20,
-  // },
+  text:{
+    fontSize: 18,
+    fontFamily: 'Montserrat-Bold',
+    color: '#004fb4',
+    
+  },
+  form: {
+    paddingHorizontal: 0.08 * width,
+    width: width,
+    marginBottom: 16
+  },
+  button:{
+    alignSelf: 'stretch',
+    marginBottom: 16,
+    justifyContent: 'center'
+  },
+  btncontainer:{
+    width: width,
+    paddingHorizontal:  0.08 * width,
+
+  }
   // label: {
   //   fontSize: 15,
   //   fontFamily: 'Montserrat-Bold',

@@ -4,7 +4,8 @@ import {
   Text,
   Thumbnail,
 } from 'native-base';
-import {StyleSheet, ImageBackground, View} from 'react-native';
+import {StyleSheet, ImageBackground, View, Dimensions} from 'react-native';
+const {width} = Dimensions.get('window');
 
 const logo = require('../img/CC-Cenpromype-05.png');
 const image = require('../img/CC-Cenpromype_M1.png');
@@ -14,7 +15,7 @@ const Home = ({navigation}) => {
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.background}>
         <View>
-          <Thumbnail square large source={logo} style={styles.logoImg} />
+          <Thumbnail square large source={logo} style={styles.logoImg} resizeMode='contain' />
         </View>
         <View>
         <Button rounded warning onPress={() => navigation.navigate('Login')}>
@@ -39,8 +40,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoImg:{
-    width: 275,
-    height: 240,
+    width: 0.8 * width,
+    height: 0.8 * width,
     marginTop: 35,
 
   }
