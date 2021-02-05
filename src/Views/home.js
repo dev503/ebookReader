@@ -12,9 +12,9 @@ const image = require('../img/CC-Cenpromype_M1.png');
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={image} style={styles.image}>
+      <ImageBackground source={image} style={styles.background}>
         <View>
-          <Thumbnail square large source={logo} style={{height: 200, width: 225, marginBottom: 20 }} />
+          <Thumbnail square large source={logo} style={styles.logoImg} />
         </View>
         <View>
         <Button rounded warning onPress={() => navigation.navigate('Login')}>
@@ -32,16 +32,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  image: {
+  background: {
     flex: 1,
     resizeMode: 'cover',
-    // justifyContent: 'center',
+    justifyContent:'flex-start',
     alignItems: 'center',
   },
-  textbtn: {
-    fontSize: 16,
-    fontFamily: 'Montserrat-Bold',
-    fontWeight: 'bold'
+  logoImg:{
+    width: 275,
+    height: 240,
+    marginTop: 35,
+
   }
 });
 

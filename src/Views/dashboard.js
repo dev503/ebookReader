@@ -1,8 +1,6 @@
 import React, { useRef,useState }  from 'react';
-import { DrawerLayoutAndroid } from 'react-native';
+import { DrawerLayoutAndroid, StyleSheet } from 'react-native';
 import * as axios from 'axios';
-
-
 import {
   Container,
   Content,
@@ -80,7 +78,7 @@ const Dashboard = ({ navigation }) => {
   return (
     <DrawerLayoutAndroid
       ref={drawer}
-      drawerWidth={300}
+      style={styles.drawers}
       drawerPosition="left"
       renderNavigationView={() => {
         return <Drawer navigation={navigation} />;
@@ -118,5 +116,9 @@ const Dashboard = ({ navigation }) => {
     </DrawerLayoutAndroid>
   );
 };
-
+const styles = StyleSheet.create({
+drawers:{
+  flex: 1
+}
+});
 export default Dashboard;
