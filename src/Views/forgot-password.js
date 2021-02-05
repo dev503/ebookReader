@@ -66,7 +66,8 @@ const ForgotPassword = ({navigation}) => {
           </Form>
         </View>
         <View>
-          <Button rounded onPress={() => sendData()} style={styles.enviar}>
+          {/* <Button rounded onPress={() => sendData()} style={styles.enviar}>  descomentar esta linea y borrar otra*/}
+          <Button rounded style={styles.enviar} onPress={() => navigation.navigate('NewPassword')}>
             <Text
               style={{
                 fontFamily: 'Montserrat-Bold',

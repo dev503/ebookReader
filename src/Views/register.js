@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import * as axios from 'axios';
 
-import {Form, Item, Label, Button, Text, H1, Icon} from 'native-base';
-import {StyleSheet, ImageBackground, View, TextInput} from 'react-native';
+import {Form, Item, Label, Button, Text, H1, Icon, Header, Left, Right} from 'native-base';
+import {StyleSheet, ImageBackground, View, TextInput, Image} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const fondo = require('../img/CC-Cenpromype-03.png');
+const flecha = require('../img/CC-Cenpromype-19.png');
 
 /* Obtiene instante de tiempo justo ahora */
 const now = new Date();
@@ -74,6 +75,17 @@ const Register = ({navigation}) => {
   }
   return (
     <View style={styles.container}>
+    <Header style={{backgroundColor: '#f48c1c'}}>
+          <Left>
+            <Button transparent onPress={() => navigation.navigate('Login')}>
+             <Image source={flecha} style={{width: 40, height: 40}}></Image>
+            </Button>
+          </Left>
+         
+          <Right>
+          
+          </Right>
+        </Header>
       <ImageBackground source={fondo} style={styles.image}>
         <View style={{alignItems: 'center'}}>
           <H1 style={styles.h1}> Registrate</H1>
@@ -122,7 +134,7 @@ const Register = ({navigation}) => {
                 <Picker
                   selectedValue={selectedGender}
                   style={{
-                    height: 40,
+                    height: 30,
                     width: 180,
                     marginHorizontal: 50,
                     color: '#004fb4',
