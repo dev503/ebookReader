@@ -43,10 +43,10 @@ const Login = ({navigation}) => {
         </View>
         <View style={styles.form}>
             <Item style={styles.items} fixedLabel>
-              {/* <Label style={styles.label}>Correo electrónico</Label> */}
+              
               <TextInput
                 autoCorrect={false}
-                autoFocus={true}
+                // autoFocus={true}
                 onChangeText={(value) => setUsername(value)}
                 placeholder="Correo/Usuario"
                 placeholderTextColor="#ffffff"
@@ -54,7 +54,7 @@ const Login = ({navigation}) => {
               />
             </Item>
             <Item fixedLabel style={styles.items}>
-              {/* <Label style={styles.label}>Contraseña</Label> */}
+           
               <TextInput
                 secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
@@ -141,40 +141,9 @@ const styles = StyleSheet.create({
   },
   btncontainer:{
     width: width,
-    paddingHorizontal:  0.08 * width,
+    paddingHorizontal:  0.09 * width,
 
-  }
-  // label: {
-  //   fontSize: 15,
-  //   fontFamily: 'Montserrat-Bold',
-  //   color: '#ffffff',
-  // },
-  // textInput: {
-  //   fontSize: 15,
-  //   fontFamily: 'Montserrat-Bold',
-  //   color: '#004fb4',
-  // },
-  // fogotpass: {
-  //   fontSize: 15,
-  //   fontFamily: 'Montserrat-Medium',
-  //   margin: 10,
-  //   alignItems: 'center',
-  //   marginHorizontal: 60,
-  //   color: '#004fb4',
-  //   fontWeight: 'bold',
-  // },
-  // inicio: {
-  //   marginHorizontal: 50,
-  //   width: 225,
-  //   justifyContent: 'center',
-  //   marginBottom: 10,
-  // },
-  // registro: {
-  //   marginHorizontal: 50,
-  //   width: 225,
-  //   justifyContent: 'center',
-  //   marginBottom: 10,
-  //   backgroundColor: '#ffffff',
-  // },
+ 
+},
 });
 export default Login;

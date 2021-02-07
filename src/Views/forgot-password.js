@@ -1,73 +1,85 @@
-
 import React, {useState} from 'react';
 import * as axios from 'axios';
-import {StyleSheet, ImageBackground, View, TextInput, Image} from 'react-native';
-import {Form, Item, Label, Button, Text, Thumbnail, Header, Left, Right} from 'native-base';
-
+import {
+  StyleSheet,
+  ImageBackground,
+  View,
+  TextInput,
+  Image,
+  Dimensions,
+} from 'react-native';
+import {
+  Form,
+  Item,
+  Label,
+  Button,
+  Text,
+  Thumbnail,
+  Header,
+  Left,
+  Right,
+} from 'native-base';
+const {width} = Dimensions.get('window');
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
 const flecha = require('../img/CC-Cenpromype-19.png');
 
 const ForgotPassword = ({navigation}) => {
-
   const [email, setEmail] = useState('');
 
   function sendData() {
-
     console.log(email);
     axios
-      .post('http://backoffice.moondevsv.com/Backend/public/user/forgotPassword', {
-        // email: email,
-        email: 'mauricio25luna@gmail.com',
-        token: '12345', 
-      })
+      .post(
+        'http://backoffice.moondevsv.com/Backend/public/user/forgotPassword',
+        {
+          // email: email,
+          email: 'mauricio25luna@gmail.com', //comentar esta linea y descomentar la anterior
+          token: '12345',
+        },
+      )
       .then((res) => {
         navigation.reset({index: 0, routes: [{name: 'NewPassword'}]});
       })
       .catch((err) => {
         console.error(err);
-        
       });
-    }
-    
+  }
+
   return (
     <View style={styles.container}>
-    <Header style={{backgroundColor: '#f48c1c'}}>
-          <Left>
-            <Button transparent onPress={() => navigation.navigate('Login')}>
-             <Image source={flecha} style={{width: 40, height: 40}}></Image>
-            </Button>
-          </Left>
-         
-          <Right>
-          
-          </Right>
-        </Header>
-      <ImageBackground source={fondo} style={styles.image}>
+      <Header style={{backgroundColor: '#f48c1c'}}>
+        <Left>
+          <Button transparent onPress={() => navigation.navigate('Login')}>
+            <Image source={flecha} style={{width: 50, height: 50}}></Image>
+          </Button>
+        </Left>
+
+        <Right></Right>
+      </Header>
+      <ImageBackground source={fondo} style={styles.background}>
         <View style={styles.logoIco}>
-          <Thumbnail
-            square
-            large
-            source={logo}
-            style={{height: 210, width: 240, marginBottom: 20 }}
-          />
+          <Thumbnail square large source={logo} style={styles.logoIco} />
         </View>
         <View style={styles.form}>
           <Form>
-            <Item stackedLabel>
-              <Label style={styles.label}>Correo electrónico</Label>
+            <Item style={styles.items} fixedLabel>
               <TextInput
                 autoCorrect={false}
-                autoFocus={true}
                 onChangeText={(value) => setEmail(value)}
-                style={styles.textInput}
+                placeholder="Correo electrónico"
+                placeholderTextColor="#ffffff"
+                style={styles.text}
               />
             </Item>
           </Form>
         </View>
-        <View>
-          {/* <Button rounded onPress={() => sendData()} style={styles.enviar}>  descomentar esta linea y borrar otra*/}
-          <Button rounded style={styles.enviar} onPress={() => navigation.navigate('NewPassword')}>
+        <View style={styles.btncontainer}>
+          {/* onPress={() => sendData()}  Onpress correcto*/}
+          <Button
+            rounded
+            style={[styles.button, {backgroundColor: '#fff'}]}
+            onPress={() => navigation.navigate('NewPassword')}>
             <Text
               style={{
                 fontFamily: 'Montserrat-Bold',
@@ -75,7 +87,7 @@ const ForgotPassword = ({navigation}) => {
                 fontWeight: 'bold',
                 color: '#f48c1c',
               }}>
-              Enviar
+              Enviar correo
             </Text>
           </Button>
         </View>
@@ -88,37 +100,42 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  image: {
+  background: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   logoIco: {
-    alignItems: 'center',
-    
+    width: 0.6 * width,
+    height: 0.6 * width,
   },
-  form: {
-    marginHorizontal: 20,
-  },
-  label: {
-    fontSize: 15,
+  items: {
+    textAlign: 'center',
+    fontSize: 18,
     fontFamily: 'Montserrat-Bold',
-    color: '#ffffff',
+    color: '#004fb4',
+    fontWeight: 'bold',
   },
-  textInput: {
-    fontSize: 15,
+  text: {
+    fontSize: 18,
     fontFamily: 'Montserrat-Bold',
     color: '#004fb4',
   },
-  enviar: {
-    marginHorizontal: 50,
-    width: 225,
-    justifyContent: 'center',
-    marginTop: 20,
-    backgroundColor: '#ffffff',
-    
+  form: {
+    paddingHorizontal: 0.08 * width,
+    width: width,
+    marginBottom: 26,
   },
-
+  btncontainer: {
+    width: width,
+    paddingHorizontal: 0.09 * width,
+  },
+  button: {
+    alignSelf: 'stretch',
+    marginBottom: 28,
+    justifyContent: 'center',
+  },
 });
 
 export default ForgotPassword;

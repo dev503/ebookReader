@@ -11,6 +11,8 @@ const logo = require('../img/CC-Cenpromype-05.png');
 const image = require('../img/CC-Cenpromype_M1.png');
 
 const Home = ({navigation}) => {
+
+  
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.background}>
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
   logoImg:{
     width: 0.8 * width,
     height: 0.8 * width,
-    marginTop: 35,
+    marginTop: 0.2 * width
 
   }
 });
