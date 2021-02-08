@@ -6,8 +6,9 @@ import {
   View,
   TextInput,
   Dimensions,
+  ToastAndroid
 } from 'react-native';
-import {Form, Item, Label, Button, Text, Thumbnail} from 'native-base';
+import {Item, Button, Text, Thumbnail} from 'native-base';
 
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
@@ -21,10 +22,10 @@ const Login = ({navigation}) => {
     console.log(username, password);
     axios
       .post('http://backoffice.moondevsv.com/Backend/public/user/search', {
-        email: username,
-        password: password,
-        // email: 'mauricio25luna@gmail.com',
-        // password: '12345',
+        // email: username,
+        // password: password,
+        email: 'mauricio25luna@gmail.com',
+        password: '12345',
         token: '12345',
       })
       .then((res) => {
@@ -32,6 +33,11 @@ const Login = ({navigation}) => {
       })
       .catch((err) => {
         console.error(err);
+        ToastAndroid.showWithGravity(
+          'Usuario o contraseña Incorrectos',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
       });
   }
 
@@ -113,8 +119,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoIco: {
-  width: 0.6 * width,
-  height: 0.6 * width
+  width: 0.7 * width,
+  height: 0.7 * width,
+  marginTop: 16
   },
   items: {
    textAlign: 'center',
@@ -130,9 +137,9 @@ const styles = StyleSheet.create({
     
   },
   form: {
-    paddingHorizontal: 0.08 * width,
+    paddingHorizontal: 0.09 * width,
     width: width,
-    marginBottom: 16
+    
   },
   button:{
     alignSelf: 'stretch',
@@ -142,6 +149,7 @@ const styles = StyleSheet.create({
   btncontainer:{
     width: width,
     paddingHorizontal:  0.09 * width,
+    marginTop: 16,
 
  
 },

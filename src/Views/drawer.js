@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   Image,
+  Dimensions,
 } from 'react-native';
 import {
   Text,
@@ -17,37 +18,36 @@ import {
   Button,
   Thumbnail,
 } from 'native-base';
-
-const icono = require('../img/CC-Cenpromype-09.png');
+const {width} = Dimensions.get('window');
+const image = require('../img/CC-Cenpromype-09.png');
 const fondo = require('../img/CC-Cenpromype-04.png');
-const perfil = require('../img/CC-Cenpromype-12.png');
-const publicacion = require('../img/CC-Cenpromype-13.png');
+const personIco = require('../img/CC-Cenpromype-12.png');
+const fileIco = require('../img/CC-Cenpromype-13.png');
 
 const Drawer = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={fondo} style={styles.image}>
-        <View style={styles.logoIco}>
+      <ImageBackground source={fondo} style={styles.background}>
+        <View >
           <Thumbnail
             large
-            source={icono}
-            style={{height: 100, width: 100, marginBottom: 20}}
+            source={image}
+            style={styles.logoIco}
           />
         </View>
-        <View style={styles.text}>
-          <Image style={styles.iconitos} source={perfil} />
-          <Text style={styles.textInput}>Mi Perfil</Text>
-        </View>
-        <View style={styles.text}>
-          <Image style={styles.iconitos} source={publicacion} />
-          <Text style={styles.textInput}>Mis publicaciones</Text>
+        <View style={styles.up}>
+          <View style={styles.text}>
+            <Image style={styles.iconTop} source={personIco} />
+            <Text style={styles.textInput}>Mi Perfil</Text>
+          </View>
+          <View style={styles.text}>
+            <Image style={styles.iconTop} source={fileIco} />
+            <Text style={styles.textInput}>Mis publicaciones</Text>
+          </View>
         </View>
 
         <View style={styles.down}>
-        <View style={styles.text}>
-          <Image style={styles.iconitos} source={publicacion} />
-          <Text style={styles.textInput}>Mis publicaciones</Text>
-        </View>
+        
 
           <List button>
             <ListItem full button>
@@ -72,24 +72,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    
   },
-  image: {
+  background: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    justifyContent: 'flex-start', 
+    alignItems: 'flex-start',
+    
   },
   logoIco: {
-    marginLeft: 50,
+    width: 0.3 * width,
+    height: 0.3 * width,
+    marginTop: 0.25 * width,
+    marginLeft: 0.1 * width
   },
   text: {
     flexDirection: 'row',
-    marginTop: 10,
     alignItems: 'center',
   },
-  iconitos: {
-    width: 30,
-    height: 30,
-    marginLeft: 30,
+  iconTop: {
+    width: 0.09 * width,
+    height: 0.09 * width,
+    marginLeft: 0.08 * width
   },
 
   label: {

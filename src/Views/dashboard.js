@@ -1,5 +1,13 @@
-import React, { useRef,useState }  from 'react';
-import { DrawerLayoutAndroid, StyleSheet } from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  DrawerLayoutAndroid,
+  StyleSheet,
+  ImageBackground,
+  View,
+  TextInput,
+  Dimensions,
+  Image,
+} from 'react-native';
 import * as axios from 'axios';
 import {
   Container,
@@ -16,109 +24,137 @@ import {
   Text,
   List,
   Label,
-  ListItem
+  ListItem,
+  Thumbnail,
 } from 'native-base';
 import Drawer from './drawer';
 
-const Dashboard = ({ navigation }) => {
+const logo = require('../img/CC-Cenpromype-10.png');
+const menu = require('../img/CC-Cenpromype-17.png');
+const {width} = Dimensions.get('window');
+
+const Dashboard = ({navigation}) => {
   const [books, setBooks] = useState('');
 
-
-  function getBook () {
+  function getBook() {
     axios
-      .post(
-        'http://backoffice.moondevsv.com/Backend/public/books/list',
-        {
-          token: '12345'
-        },
-      )
+      .post('http://backoffice.moondevsv.com/Backend/public/books/list', {
+        token: '12345',
+      })
       .then((res) => {
-        setBooks(res.data['data'])
-        return res.data['data']
+        setBooks(res.data['data']);
+        return res.data['data'];
       })
       .catch((err) => {
         console.error(err);
       });
   }
-  
-  function ListOfBooks(){
-    var booksito = books
 
-    if (books=="" && booksito.length == 0) {
+  function ListOfBooks() {
+    var booksito = books;
+
+    if (books == '' && booksito.length == 0) {
       return (
         <ListItem>
-        <Text style={{fontSize: 23, fontWeight: "bold", flex:3}} >Loading </Text>
+          <Text style={{fontSize: 23, fontWeight: 'bold', flex: 3}}>
+            Loading{' '}
+          </Text>
         </ListItem>
-      )
+      );
     } else {
-      var view = null
-      let booksListArray = [] 
+      var view = null;
+      let booksListArray = [];
       for (let index = 0; index < booksito.length; index++) {
-        console.log(booksito[index])
-        view = <ListItem key={booksito[index]["id"]} onPress={() => navigation.navigate('Reader',{url: booksito[index]["url"]})}>
-                    <Text style={{fontSize: 23, fontWeight: "bold", flex:3}} >{booksito[index]["title"]} </Text>
-                    <Body>
-                      <Label style={{ }}>{booksito[index]["author"]}</Label>
-                      <Label style={{ color: '#6c6c6c' }}>{booksito[index]["size"]} </Label>
-                    </Body>
-                  </ListItem>;
-        booksListArray.push(view)
+        console.log(booksito[index]);
+        view = (
+          <ListItem
+            key={booksito[index]['id']}
+            onPress={() =>
+              navigation.navigate('Reader', {url: booksito[index]['url']})
+            }>
+            <Text style={{fontSize: 23, fontWeight: 'bold', flex: 3}}>
+              {booksito[index]['title']}{' '}
+            </Text>
+            <Body>
+              <Label style={{}}>{booksito[index]['author']}</Label>
+              <Label style={{color: '#6c6c6c'}}>
+                {booksito[index]['size']}{' '}
+              </Label>
+            </Body>
+          </ListItem>
+        );
+        booksListArray.push(view);
       }
-      
-      return (booksListArray)
+
+      return booksListArray;
     }
-   
   }
-  if(books==""){
-    getBook()
+  if (books == '') {
+    getBook();
   }
-  
 
   const drawer = useRef(null);
   return (
     <DrawerLayoutAndroid
       ref={drawer}
       style={styles.drawers}
-      drawerPosition="left"
+      drawerPosition="right"
       renderNavigationView={() => {
         return <Drawer navigation={navigation} />;
       }}>
-      <Container>
-        <Header>
-          <Left>
+      <Header transparent>
+        <Left></Left>
+
+        <Right>
           <Button transparent onPress={() => drawer.current.openDrawer()}>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right>
-          </Right>
-        </Header>
-        <Content>
-        <List>
-         <ListOfBooks />
-        </List>
+            {/* <Icon  name="menu" /> */}
+            <Image source={menu} style={{width: 50, height: 50}}></Image>
+          </Button>
+        </Right>
+      </Header>
+      <View style={styles.container}>
+        <View style={{alignItems:'center'}}>
+          <Thumbnail
+            square
+            large
+            source={logo}
+            style={styles.logoIco}
+          />
+        </View>
+        <View>
+          <List>
+            <ListOfBooks />
+          </List>
           {/* <Text>This is Content Section</Text> */}
           {/* <Button onPress={() => navigation.navigate('Reader')}>
-            <Text>Show reader</Text>
-          </Button> */}
-        </Content>
-        <Footer>
+              <Text>Show reader</Text>
+            </Button> */}
+        </View>
+      </View>
+
+      {/* <Footer>
           <FooterTab>
             <Button full>
               <Text>Footer</Text>
             </Button>
           </FooterTab>
-        </Footer>
-      </Container>
+        </Footer> */}
     </DrawerLayoutAndroid>
   );
 };
 const styles = StyleSheet.create({
-drawers:{
-  flex: 1
-}
+  drawers: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  logoIco: {
+    width: 0.6 * width,
+    height: 0.6 * width,
+   
+    },
 });
 export default Dashboard;

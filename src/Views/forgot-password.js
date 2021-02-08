@@ -39,10 +39,18 @@ const ForgotPassword = ({navigation}) => {
         },
       )
       .then((res) => {
-        navigation.reset({index: 0, routes: [{name: 'NewPassword'}]});
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'NewPassword',
+              params: {email: email},
+            },
+          ],
+        });
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   }
 
@@ -58,11 +66,11 @@ const ForgotPassword = ({navigation}) => {
         <Right></Right>
       </Header>
       <ImageBackground source={fondo} style={styles.background}>
-        <View style={styles.logoIco}>
+        <View >
           <Thumbnail square large source={logo} style={styles.logoIco} />
         </View>
         <View style={styles.form}>
-          <Form>
+       
             <Item style={styles.items} fixedLabel>
               <TextInput
                 autoCorrect={false}
@@ -72,14 +80,16 @@ const ForgotPassword = ({navigation}) => {
                 style={styles.text}
               />
             </Item>
-          </Form>
+         
         </View>
         <View style={styles.btncontainer}>
           {/* onPress={() => sendData()}  Onpress correcto*/}
           <Button
             rounded
             style={[styles.button, {backgroundColor: '#fff'}]}
+            // Este onpress es provicional ya que no se puede pasar a la vista debido a error estaus 423
             onPress={() => navigation.navigate('NewPassword')}>
+            {/* onPress={() => sendData()}> */}
             <Text
               style={{
                 fontFamily: 'Montserrat-Bold',
@@ -107,8 +117,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoIco: {
-    width: 0.6 * width,
-    height: 0.6 * width,
+    width: 0.7 * width,
+    height: 0.7 * width,
+    marginBottom: 16
+
   },
   items: {
     textAlign: 'center',
@@ -123,9 +135,11 @@ const styles = StyleSheet.create({
     color: '#004fb4',
   },
   form: {
-    paddingHorizontal: 0.08 * width,
+    paddingHorizontal: 0.09 * width,
     width: width,
     marginBottom: 26,
+  
+ 
   },
   btncontainer: {
     width: width,
