@@ -1335,6 +1335,34 @@
   "resolved" "https://registry.npmjs.org/@types/prettier/-/prettier-2.1.5.tgz"
   "version" "2.1.5"
 
+"@types/prop-types@*":
+  "integrity" "sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw=="
+  "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.3.tgz"
+  "version" "15.7.3"
+
+"@types/react-native-vector-icons@^6.4.6":
+  "integrity" "sha512-lAyxNfMd5L1xZvXWsGcJmNegDf61TAp40uL6ashNNWj9W3IrDJO59L9+9inh0Y2MsEZpLTdxzVU8Unb4/0FQng=="
+  "resolved" "https://registry.npmjs.org/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.6.tgz"
+  "version" "6.4.6"
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*":
+  "integrity" "sha512-6+7WsHfVkcYEwO/u3wxarMwZq/mbJZ5iDYCXwX5bs8lm0vEIuBdMsk9jrwxuCBvaXhGdB0lriwTgfew/7VN2Kg=="
+  "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.63.48.tgz"
+  "version" "0.63.48"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  "integrity" "sha512-w8t9f53B2ei4jeOqf/gxtc2Sswnc3LBK5s0DyJcg5xd10tMHXts2N31cKjWfH9IC/JvEPa/YF1U4YeP1t4R6HQ=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-17.0.1.tgz"
+  "version" "17.0.1"
+  dependencies:
+    "@types/prop-types" "*"
+    "csstype" "^3.0.2"
+
 "@types/stack-utils@^1.0.1":
   "integrity" "sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw=="
   "resolved" "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-1.0.1.tgz"
@@ -2291,7 +2319,7 @@
   "resolved" "https://registry.npmjs.org/color-support/-/color-support-1.1.3.tgz"
   "version" "1.1.3"
 
-"color@^3.1.3", "color@~3.1.2":
+"color@^3.1.2", "color@^3.1.3", "color@~3.1.2":
   "integrity" "sha512-xgXAcTHa2HeFCGLE9Xs/R82hujGtu9Jd9x4NW3T34+OMs7VoPsjwzRczKHvTAHeJwWFwX5j15+MgAppE8ztObQ=="
   "resolved" "https://registry.npmjs.org/color/-/color-3.1.3.tgz"
   "version" "3.1.3"
@@ -2483,6 +2511,11 @@
   "version" "2.3.0"
   dependencies:
     "cssom" "~0.3.6"
+
+"csstype@^3.0.2":
+  "integrity" "sha512-+ZAmfyWMT7TiIlzdqJgjMb7S4f1beorDbWbsocyK4RaiqA5RTX3K14bnBWmmA9QEM0gRdsjyyrEmcyga8Zsxmw=="
+  "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.6.tgz"
+  "version" "3.0.6"
 
 "cycle@1.0.x":
   "integrity" "sha1-IegLK+hYD5i0aPN5QwZisEbDStI="
@@ -3656,6 +3689,13 @@
   "version" "1.2.0"
 
 "hoist-non-react-statics@^3.3.0":
+  "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
+  "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
+  "version" "3.3.2"
+  dependencies:
+    "react-is" "^16.7.0"
+
+"hoist-non-react-statics@^3.3.2":
   "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   "version" "3.3.2"
@@ -5853,7 +5893,7 @@
   dependencies:
     "is-wsl" "^1.1.0"
 
-"opencollective-postinstall@^2.0.2":
+"opencollective-postinstall@^2.0.2", "opencollective-postinstall@^2.0.3":
   "integrity" "sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q=="
   "resolved" "https://registry.npmjs.org/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz"
   "version" "2.0.3"
@@ -6304,6 +6344,21 @@
   dependencies:
     "lodash" "^4.17.15"
 
+"react-native-elements@^3.2.0":
+  "integrity" "sha512-DgilI1P/S8xV3Uh6sjS7v1H7DsBXhlivG1IwHGJCO3OV3aFNh90bcdcmlKzxLZXWghQItqh9hQR3TLmgaZbU1w=="
+  "resolved" "https://registry.npmjs.org/react-native-elements/-/react-native-elements-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@types/react-native-vector-icons" "^6.4.6"
+    "color" "^3.1.2"
+    "deepmerge" "^4.2.2"
+    "hoist-non-react-statics" "^3.3.2"
+    "lodash.isequal" "^4.5.0"
+    "opencollective-postinstall" "^2.0.3"
+    "prop-types" "^15.7.2"
+    "react-native-ratings" "^7.3.0"
+    "react-native-size-matters" "^0.3.1"
+
 "react-native-gesture-handler@^1.9.0":
   "integrity" "sha512-fkkNeWDBzDdwDxDcxtYbrb9T1g0PLgT1AxBs2iO/p7uEbDbC6mIoL/NzuOnKNEBHcd0lpLoJuNmIfdmucEON5g=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.9.0.tgz"
@@ -6320,6 +6375,14 @@
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
 
+"react-native-ratings@^7.3.0":
+  "integrity" "sha512-NCDIkmrVPnxPzP9zKdlcNpa2rPs3Hiv2qXsojUr3FpwbANWfgYE+jjGSSCBcS3vpXndTjhoaTGFDnybnUSFPFA=="
+  "resolved" "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-7.3.0.tgz"
+  "version" "7.3.0"
+  dependencies:
+    "lodash" "^4.17.15"
+    "prop-types" "^15.7.2"
+
 "react-native-reanimated@^1.7.0":
   "integrity" "sha512-FQWSqP605eQVJumuK2HpR+7heF0ZI+qfy4jNguv3Xv8nPFHeIgZaRTXHCEQL2AcuSIj50zy8jGJf5l134QMQWQ=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-1.7.0.tgz"
@@ -6335,7 +6398,12 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.15.0.tgz"
   "version" "2.15.0"
 
-"react-native-vector-icons@^7.0.0", "react-native-vector-icons@^7.1.0":
+"react-native-size-matters@^0.3.1":
+  "integrity" "sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw=="
+  "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
+  "version" "0.3.1"
+
+"react-native-vector-icons@^7.0.0", "react-native-vector-icons@^7.1.0", "react-native-vector-icons@>7.0.0":
   "integrity" "sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz"
   "version" "7.1.0"
@@ -6362,7 +6430,7 @@
   "resolved" "https://registry.npmjs.org/react-native-windows/-/react-native-windows-1.0.0.tgz"
   "version" "1.0.0"
 
-"react-native@>=0.60", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@0.63.4":
+"react-native@*", "react-native@>=0.60", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@0.63.4":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.63.4.tgz"
   "version" "0.63.4"
@@ -6418,7 +6486,7 @@
     "raf" "^3.1.0"
     "tween-functions" "^1.0.1"
 
-"react@>=16.8.3", "react@16.13.1":
+"react@*", "react@>=16.8.3", "react@16.13.1":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"

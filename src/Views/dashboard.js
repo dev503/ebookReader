@@ -1,99 +1,79 @@
-import React, {useRef, useState} from 'react';
-import {
-  DrawerLayoutAndroid,
-  StyleSheet,
-  ImageBackground,
-  View,
-  TextInput,
-  Dimensions,
-  Image,
-} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import { DrawerLayoutAndroid,SafeAreaView, Text, StyleSheet, View, FlatList, Dimensions, Image} from 'react-native';
+import {SearchBar} from 'react-native-elements';
+import { Header, Left, Right, Button,Thumbnail} from 'native-base';
 import * as axios from 'axios';
-import {
-  Container,
-  Content,
-  Header,
-  Title,
-  Footer,
-  FooterTab,
-  Button,
-  Left,
-  Right,
-  Body,
-  Icon,
-  Text,
-  List,
-  Label,
-  ListItem,
-  Thumbnail,
-} from 'native-base';
 import Drawer from './drawer';
 
 const logo = require('../img/CC-Cenpromype-10.png');
 const menu = require('../img/CC-Cenpromype-17.png');
+const fileIco = require('../img/CC-Cenpromype-21.png');
 const {width} = Dimensions.get('window');
 
 const Dashboard = ({navigation}) => {
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
   const [books, setBooks] = useState('');
+  const [search, setSearch] = useState('');
+  const drawer = useRef(null);
 
-  function getBook() {
+  useEffect(() => {
     axios
       .post('http://backoffice.moondevsv.com/Backend/public/books/list', {
         token: '12345',
       })
-      .then((res) => {
-        setBooks(res.data['data']);
-        return res.data['data'];
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setFilteredDataSource(responseJson);
+        setMasterDataSource(responseJson);
       })
       .catch((err) => {
         console.error(err);
       });
-  }
-
-  function ListOfBooks() {
-    var booksito = books;
-
-    if (books == '' && booksito.length == 0) {
-      return (
-        <ListItem>
-          <Text style={{fontSize: 23, fontWeight: 'bold', flex: 3}}>
-            Loading{' '}
-          </Text>
-        </ListItem>
-      );
+  }, []);
+  const searchFilterFunction = (text) => {
+    if (text) {
+      const newData = masterDataSource.filter(function (item) {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredDataSource(newData);
+      setSearch(text);
     } else {
-      var view = null;
-      let booksListArray = [];
-      for (let index = 0; index < booksito.length; index++) {
-        console.log(booksito[index]);
-        view = (
-          <ListItem
-            key={booksito[index]['id']}
-            onPress={() =>
-              navigation.navigate('Reader', {url: booksito[index]['url']})
-            }>
-            <Text style={{fontSize: 23, fontWeight: 'bold', flex: 3}}>
-              {booksito[index]['title']}{' '}
-            </Text>
-            <Body>
-              <Label style={{}}>{booksito[index]['author']}</Label>
-              <Label style={{color: '#6c6c6c'}}>
-                {booksito[index]['size']}{' '}
-              </Label>
-            </Body>
-          </ListItem>
-        );
-        booksListArray.push(view);
-      }
-
-      return booksListArray;
+      setFilteredDataSource(masterDataSource);
+      setSearch(text);
     }
-  }
-  if (books == '') {
-    getBook();
-  }
+  };
+  const ItemView = ({item}) => {
+    return (
+      // Flat List Item
+      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+        {item.id}
+        {'.'}
+        {item.title.toUpperCase()}
+      </Text>
+    );
+  };
+  const ItemSeparatorView = () => {
+    return (
+      // Flat List Item Separator
+      <View
+        style={{
+          height: 0.5,
+          width: '100%',
+          backgroundColor: '#C8C8C8',
+        }}
+      />
+    );
+  };
 
-  const drawer = useRef(null);
+  const getItem = (item) => {
+    // Function for click on an item
+    alert('Id : ' + item.id + ' Title : ' + item.title);
+  };
   return (
     <DrawerLayoutAndroid
       ref={drawer}
@@ -113,48 +93,51 @@ const Dashboard = ({navigation}) => {
         </Right>
       </Header>
       <View style={styles.container}>
-        <View style={{alignItems:'center'}}>
-          <Thumbnail
-            square
-            large
-            source={logo}
-            style={styles.logoIco}
-          />
+        <View style={{alignItems: 'center'}}>
+          <Thumbnail square large source={logo} style={styles.logoIco} />
         </View>
-        <View>
-          <List>
-            <ListOfBooks />
-          </List>
-          {/* <Text>This is Content Section</Text> */}
-          {/* <Button onPress={() => navigation.navigate('Reader')}>
-              <Text>Show reader</Text>
-            </Button> */}
-        </View>
+        <SafeAreaView style={{flex: 1}}>
+          <View>
+            <SearchBar
+              round
+              searchIcon={{size: 24}}
+              onChangeText={(text) => searchFilterFunction(text)}
+              onClear={(text) => searchFilterFunction('')}
+              placeholder="Buscar..."
+              value={search}
+            />
+            <FlatList
+              data={filteredDataSource}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
+              renderItem={ItemView}
+            />
+          </View>
+        </SafeAreaView>
       </View>
-
-      {/* <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer> */}
     </DrawerLayoutAndroid>
   );
 };
+
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
+  itemStyle: {
+    padding: 10,
+  },
   drawers: {
     flex: 1,
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
   },
   logoIco: {
     width: 0.6 * width,
     height: 0.6 * width,
-   
-    },
+  },
+  iconTop: {
+    width: 0.09 * width,
+    height: 0.09 * width,
+    marginLeft: 0.08 * width,
+  },
 });
+
 export default Dashboard;
