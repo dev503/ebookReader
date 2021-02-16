@@ -1,33 +1,40 @@
-import React from 'react';
-import {
-  Button,
-  Text,
-  Thumbnail,
-} from 'native-base';
+import React, {useEffect} from 'react';
+import {Button, Text, Thumbnail} from 'native-base';
 import {StyleSheet, ImageBackground, View, Dimensions} from 'react-native';
 const {width} = Dimensions.get('window');
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const logo = require('../img/CC-Cenpromype-05.png');
 const image = require('../img/CC-Cenpromype_M1.png');
 
 const Home = ({navigation}) => {
+  useEffect(() => {
+    setTimeout(async () => {
+      // Si encuentra el token redirige a Dashboard
+      if (await AsyncStorage.getItem('session_token')) {
+        navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
+      } else {
+        // Sino a Login
+      
+        navigation.reset({index: 0, routes: [{name: 'Login'}]});
+      }
+    }, 5 * 1000);
+  }, []);
 
-  
   return (
     <View style={styles.container}>
       <ImageBackground source={image} style={styles.background}>
         <View>
-          <Thumbnail square large source={logo} style={styles.logoImg} resizeMode='contain' />
+          <Thumbnail
+            square
+            large
+            source={logo}
+            style={styles.logoImg}
+            resizeMode="contain"
+          />
         </View>
-        <View>
-        <Button rounded warning onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.textbtn}>Empezar a explorar</Text>
-        </Button>
-        </View>
-        
       </ImageBackground>
     </View>
-
   );
 };
 const styles = StyleSheet.create({
@@ -38,15 +45,14 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent:'flex-start',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  logoImg:{
+  logoImg: {
     width: 0.8 * width,
     height: 0.8 * width,
-    marginTop: 0.2 * width
-
-  }
+    marginTop: 0.2 * width,
+  },
 });
 
 export default Home;

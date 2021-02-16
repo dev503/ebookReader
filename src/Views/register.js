@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import * as axios from 'axios';
 
 import {Form, Item, Label, Button, Text, H1, Icon, Header, Left, Right} from 'native-base';
-import {StyleSheet, ImageBackground, View, TextInput, Image} from 'react-native';
+import {StyleSheet, ImageBackground, View, TextInput, Image, Dimensions} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 const fondo = require('../img/CC-Cenpromype-03.png');
 const flecha = require('../img/CC-Cenpromype-19.png');
+const {width} = Dimensions.get('window');
 
 /* Obtiene instante de tiempo justo ahora */
 const now = new Date();
@@ -78,7 +79,7 @@ const Register = ({navigation}) => {
     <Header style={{backgroundColor: '#f48c1c'}}>
           <Left>
             <Button transparent onPress={() => navigation.navigate('Login')}>
-             <Image source={flecha} style={{width: 40, height: 40}}></Image>
+             <Image source={flecha} style={{width: 50, height: 50}}></Image>
             </Button>
           </Left>
          
@@ -86,13 +87,13 @@ const Register = ({navigation}) => {
           
           </Right>
         </Header>
-      <ImageBackground source={fondo} style={styles.image}>
+      <ImageBackground source={fondo} style={styles.background}>
         <View style={{alignItems: 'center'}}>
           <H1 style={styles.h1}> Registrate</H1>
         </View>
         <View style={styles.form}>
-          <Form>
-            <Item fixedLabel>
+        
+            <Item fixedLabel style={styles.items}>
               <TextInput
                 autoCorrect={false}
                 onChangeText={(value) => setUsername(value)}
@@ -101,7 +102,7 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item fixedLabel>
+            <Item fixedLabel style={styles.items}>
               <TextInput
                 autoCorrect={false}
                 onChangeText={(value) => setName(value)}
@@ -110,7 +111,7 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item fixedLabel>
+            <Item fixedLabel style={styles.items}>
               <TextInput
                 secureTextEntry={true}
                 onChangeText={(value) => setPassword(value)}
@@ -119,7 +120,7 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item fixedLabel>
+            <Item fixedLabel style={styles.items}>
               <TextInput
                 secureTextEntry={true}
                 onChangeText={(value) => setPasswordConfirmation(value)}
@@ -128,7 +129,7 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item>
+            <Item style={styles.items}>
               <View style={styles.container}>
                 <Label style={styles.label}>Sexo</Label>
                 <Picker
@@ -149,12 +150,12 @@ const Register = ({navigation}) => {
                 </Picker>
               </View>
             </Item>
-            <Item>
+            <Item style={styles.items}>
               <View style={{marginTop: 5}}>
                 <Label style={styles.label}>Fecha de nacimiento</Label>
-                <View style= {{flexDirection: 'row', alignItems: 'center', marginHorizontal: 60}}>
+                <View >
                 <Text
-                style={{marginTop: 5, color: '#004fb4', marginBottom: 8, marginRight: 50 }}
+               
                   onPress={() => {
                     setShowDatePicker(true);
                   }}>
@@ -163,9 +164,7 @@ const Register = ({navigation}) => {
                 )
                   .toString()
                   .padStart(2, '0')}-${selectedDate.getFullYear()}`}</Text>
-                  <Icon name='caret-down' style={{fontSize:12, flexDirection: 'row'}}>
-
-                  </Icon>
+              
                 {showDatePicker && (
                   <DateTimePicker
                     onChange={(event, value) => {
@@ -180,7 +179,7 @@ const Register = ({navigation}) => {
               </View>
               </View>
             </Item>
-            <Item fixedLabel>
+            <Item fixedLabel style={styles.items}>
               <TextInput
                 autoCorrect={false}
                 onChangeText={(value) => setEmail(value)}
@@ -189,19 +188,19 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-          </Form>
+          
         </View>
 
-        <View>
-          <Button rounded onPress={() => sendData()} style={styles.registro}>
+        <View style={styles.btncontainer}>
+          <Button rounded onPress={() => sendData()} style={styles.button}>
             <Text
               style={{
                 color: '#f48c1c',
                 fontFamily: 'Montserrat-Bold',
-                fontSize: 15,
+                fontSize: 18,
                 fontWeight: 'bold',
               }}>
-              Enviar
+              Registrarme
             </Text>
           </Button>
         </View>
@@ -214,39 +213,57 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  image: {
+  background: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  h1: {
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    fontSize: 25,
+  },
+  button:{
+    alignSelf: 'stretch',
+    marginTop: 16,
+    justifyContent: 'center', 
+    backgroundColor: '#fff'
+  },
+  btncontainer:{
+    width: width,
+    paddingHorizontal:  0.09 * width,
+    marginTop: 16,
+},
+  h1: {
+    fontSize: 28,
     fontFamily: 'Montserrat-Bold',
     color: '#ffffff',
     fontWeight: 'bold',
+    marginBottom: 16
   },
   form: {
-    marginHorizontal: 20,
-    fontFamily: 'Montserrat-Bold',
+    paddingHorizontal: 0.09 * width,
+    width: width,
+    
   },
-  label: {
-    fontSize: 15,
-    color: '#ffffff',
-  },
+  items: {
+    textAlign: 'center',
+     fontSize: 28,
+     fontFamily: 'Montserrat-Bold',
+     color: '#004fb4',
+     fontWeight: 'bold',
+     marginTop: 5,
+     
+
+   },
+ 
+  // label: {
+  //   fontSize: 15,
+  //   color: '#ffffff',
+  // },
   textInput: {
-    fontSize: 15,
-
+    fontSize: 18,
+    fontFamily: 'Montserrat-Bold',
     color: '#004fb4',
+    marginBottom: 5
   },
 
-  registro: {
-    marginHorizontal: 50,
-    width: 225,
-    justifyContent: 'center',
-    marginTop: 15,
-    backgroundColor: '#ffffff',
-  },
   error: {
     color: 'red',
     fontWeight: 'bold',

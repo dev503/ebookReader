@@ -1,0 +1,425 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Services\Implementation\IUserImpl;
+use App\Services\VariablesGlobals\HeaderStatus;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
+
+class UserController extends Controller
+{
+    /* Esta clase es la encargada de llevar el control de los datos que se reciven
+    Son 3 datos el email , password y el token de verificacion
+     */
+
+
+     /* Las funciones de esta clase  nos ayudan a tener el control de los datos
+            primaramente vemos cual es el token que se envia cuando se entra al servidor
+            el valor del token este esta en la direccion app/Services/VariableGlobals/HeaderStatus.php line 4
+             mandamos a llamar la clase y la funcion que retorna el token  y se verifica el token que se envia
+             sea igual al que se encuentra en el Backend
+              */
+
+
+    private $TOKEN ;
+    private $UserServ ;
+    private $request;
+    public function __construct(IUserImpl $userService,Request $request,HeaderStatus $h)
+    {
+    /*
+    Aqui se hace la llamada a las clases que nos ayudaran a implementar los datos recibidos
+    , tambien se llama a la clase request esta ayuda a recibir los parametros y se llama a la clase HeaderStatus
+     para obtener el valos de el token
+    
+     */
+
+
+        $this->UserServ=$userService;
+        $this->request=$request;
+        $this->TOKEN=$h;
+
+
+
+    }
+
+    function VerifyUser (){
+
+
+        //verificamos que existan los parametros siguientes
+            if( isset($this->request["email"])&& isset($this->request["password"]))
+            {
+              
+                    $result = $this->UserServ->Login($this->request->all());
+                   
+            }
+            else
+            {
+                if(!isset($this->request["password"])){
+                    $missing[1]="password";
+                }
+                if(!isset($this->request["email"])){
+                    $missing[2]="email";
+                }
+
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>["Missing Params"=>$missing]);
+                    return response($result,423);
+            }
+
+
+
+
+
+    }
+
+
+
+    function Register (){
+        if (empty($this->request->all())) {
+            $result = array("Status"=>"Permise denied",
+                "Message"=>"Empty Params");
+            return response($result, 423);
+        } else {
+
+            //contamos los parametros
+            if (count($this->request->all())<=12) {
+             
+                        /* Se verifica si el token es igual al que se encuenta en la clase  */
+                        /* Si es igual se validan que vengan los datos que se requieren manda a llamar la funcion register de la clase que implementa los datos y se le envian
+                        los parametros que se reciben
+                        $this ->request ["username"]=usuario
+                        $this ->request ["name"]=nombre del usuario
+                        $this ->request ["password"]=contraseña
+                        $this ->request ["registration_date"]=fecha de registro
+                        $this ->request ["state"]=estado inactivo o activo o bloqueado
+                        0 = en espera
+                        1 = activo
+                        2 = bloqueado
+                        3 = inactivo
+                        4 = baja
+                        $this ->request ["image"]= archivo en imagen
+                        $this ->request ["gender"]=genero del usuario
+                        $this ->request ["birthdate"]= fecha de nacimiento
+                        $this ->request ["email"]= correo
+                        $this ->request ["phone"]= telefono
+                        $this ->request ["typeUser"]= tipo de usuario este es un entero (
+                            por el momento solo esta admin no se que mas campos hay que agregar
+                            cadan nuevo usuario usuario
+                            1 = admin
+                            2 = usuario
+                            )
+                        $this ->request ["token"]= moondev(luego decidimos cual seria)
+                         */
+                        if (isset($this ->request ["username"])&&isset($this ->request["name"])&&isset($this ->request["password"])&&isset($this ->request ["registration_date"])
+                            &&isset($this ->request ["gender"])&&isset($this ->request ["birthdate"])&&
+                            isset($this ->request ["email"])) {
+                            $result = $this->UserServ->Register($this->request->all());
+                            //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                            $header=$result["header"];
+                            /* borramos el datos de su arreglo */
+                            unset($result["header"]);
+                            /* y retornamos los arreglos que obtuvimos de la peticion
+                            y el estado de la cabecera si es 200 ,404 etc..
+                             */
+                            return response($result, $header);
+                        } else {
+                            if(!isset($this->request["username"])){
+                                $missing[0]="username";
+                            }
+                            if(!isset($this->request["email"])){
+                                $missing[1]="email";
+                            }
+                            if(!isset($this->request["password"])){
+                                $missing[2]="password";
+                            }
+                            if(!isset($this->request["birthdate"])){
+                                $missing[3]="birthdate";
+                            }
+                            if(!isset($this->request["gender"])){
+                                $missing[4]="gender";
+                            }
+                            if(!isset($this->request["name"])){
+                                $missing[5]="name";
+                            }
+                            if(!isset($this->request["registration_date"])){
+                                $missing[6]="registration_date";
+                            }
+                      
+
+
+                            $result = array("Status"=>"Permise denied",
+                                "Message"=>["Missing Parameters"=>array_values($missing)]);
+                            return response($result, 423);
+                        }
+                  
+             
+            } else {
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>"Many Params");
+                return response($result, 423);
+            }
+        }
+    }
+
+    function getAllUsers () {
+
+        //echo "Entro al metodo en el controlador";
+
+        //verificamos que existan los parametros siguientes
+            if(isset($this->request["token"]))
+            {
+                if ($this->request["token"]==$this->TOKEN->KEY()) {
+                    /* Se verifica si el token es igual al que se encuenta en la clase  */
+                    /* Si es igual se manda a llamar la funcion login de la clase que implementa los datos y se le envian
+                    los parametros que se reciben de la peticion el token , email y password */
+                    $result = $this->UserServ->getAllUsers($this->request->all());
+                    //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                    $header=$result["header"];
+                    /* borramos el datos de su arreglo */
+                     unset($result["header"]);
+                    /* y retornamos los arreglos que obtuvimos de la peticion
+                    y el estado de la cabecera si es 200 ,404 etc..
+                     */
+                    return response($result, $header);
+                }
+                else{
+                  /*   Si el token no es el mismo mandariamos un mensaje de alerta */
+                  if(empty($this->request["token"]))
+                  {
+
+                    $result = array("Status"=>"Permise denied",
+                    "Message"=>"TOKEN EMPTY");
+                    return response($result,423);
+                  }
+                  else{
+
+                    $result = array("Status"=>"Permise denied",
+                    "Message"=>"TOKEN INCORRECT");
+                    return response($result,423);
+                  }
+                }
+            }
+            else
+            {
+
+                if(!isset($this->request["token"])){
+                    $missing[0]="token";
+                }
+                
+
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>["Missing Params"=>$missing]);
+                    return response($result,423);
+            }
+    }
+
+    function modifyUser () {
+
+        //echo "Entro al metodo en el controlador";
+
+        //verificamos que existan los parametros siguientes
+            if(isset($this->request["token"]))
+            {
+                if ($this->request["token"]==$this->TOKEN->KEY() ) {
+                    /* Se verifica si el token es igual al que se encuenta en la clase  */
+                    /* Si es igual se manda a llamar la funcion login de la clase que implementa los datos y se le envian
+                    los parametros que se reciben de la peticion el token , email y password */
+                    if(isset($this->request["id_user"]) && $this->request["id_user"]!="" ){
+                        $result = $this->UserServ->modifyUser($this->request->all());
+                        //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                        $header=$result["header"];
+                        /* borramos el datos de su arreglo */
+                         unset($result["header"]);
+                        /* y retornamos los arreglos que obtuvimos de la peticion
+                        y el estado de la cabecera si es 200 ,404 etc..
+                         */
+                        return response($result, $header);
+                    }else {
+                        $result = array("Status"=>"Permise denied",
+                        "Message"=>"No id_user set");
+                        return response($result,423);
+                    }
+                   
+                }
+                else{
+                  /*   Si el token no es el mismo mandariamos un mensaje de alerta */
+                  if(empty($this->request["token"]))
+                  {
+
+                    $result = array("Status"=>"Permise denied",
+                    "Message"=>"TOKEN EMPTY");
+                    return response($result,423);
+                  }
+                  else{
+
+                    $result = array("Status"=>"Permise denied",
+                    "Message"=>"TOKEN INCORRECT");
+                    return response($result,423);
+                  }
+                }
+            }
+            else
+            {
+
+                if(!isset($this->request["token"])){
+                    $missing[0]="token";
+                }
+                
+
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>["Missing Params"=>$missing]);
+                    return response($result,423);
+            }
+    }
+
+/* /la logica de las funciones de las 3 funciones siguientes esta equivalen al proceso derecuperacion de
+contraseña ForgotPassword ayuda a iniciar un proceso nuevo
+ChangePassword ayuda a cambia la contraseña luego de un proceso
+RepeatRecovery ayuda a volver enviar el correo ya sea si el proceso fallo o se vencio el plazo
+*/
+    function ForgotPassword (){
+        if (empty($this->request->all())) {
+            $result = array("Status"=>"Permise denied",
+                "Message"=>"Empty Params");
+            return response($result, 423);
+        } else {
+
+            //contamos los parametros
+            if (count($this->request->all())<=2) {
+           
+                       /*
+                        $this ->request ["email"]= correo del usuario a recuperar
+                        $this ->request ["token"]= moondev(luego decidimos cual seria)
+                         */
+                        if (isset($this ->request ["email"])) {
+                            $result = $this->UserServ->ForgotPassword($this->request->all());
+                            //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                            $header=$result["header"];
+                            /* borramos el datos de su arreglo */
+                            unset($result["header"]);
+                            /* y retornamos los arreglos que obtuvimos de la peticion
+                            y el estado de la cabecera si es 200 ,404 etc..
+                             */
+                            return response($result,$header);
+                        } else {
+
+                            if(!isset($this->request["email"])){
+                                $missing[1]="email";
+                            }
+                            $result = array("Status"=>"Permise denied",
+                                "Message"=>["Missing Parameters"=>array_values($missing)]);
+                            return response($result, 423);
+                        }
+                  
+              
+            } else {
+                //si hay mas parametros
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>"Many Params");
+                return response($result, 423);
+            }
+        }
+    }
+
+
+
+
+    function ChangePassword (){
+        if (empty($this->request->all())) {
+            $result = array("Status"=>"Permise denied",
+                "Message"=>"Empty Params");
+            return response($result, 423);
+        } else {
+
+            //contamos los parametros
+            if (count($this->request->all())<=4) {
+                       /*
+                        $this ->request ["New_Passwor"]= nuevo password
+                        $this ->request ["token"]= moondev(luego decidimos cual seria)
+                         */
+                        if (isset($this ->request ["new_password"])&&isset($this ->request ["code"])
+                        &&isset($this ->request ["mail"])) {
+                            $result = $this->UserServ->ChangePassword($this->request->all());
+                            //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                            $header=$result["header"];
+                            /* borramos el datos de su arreglo */
+                            unset($result["header"]);
+                            /* y retornamos los arreglos que obtuvimos de la peticion
+                            y el estado de la cabecera si es 200 ,404 etc..
+                             */
+                            return response($result,$header);
+                        } else {
+                            $missing=array();
+                            //si faltan parametros lo hacemos saber
+                            if(!isset($this->request["new_password"])){
+                                $missing[1]="new_password";
+                            }
+                            if(!isset($this->request["code"])){
+                                $missing[2]="code";
+                            }
+                            if(!isset($this->request["mail"])){
+                                $missing[3]="mail";
+                            }
+                            $result = array("Status"=>"Permise denied",
+                                "Message"=>["Missing Parameters"=>array_values($missing)]);
+                            return response($result, 423);
+                        }
+            
+           
+            } else {
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>"Many Params");
+                return response($result, 423);
+            }
+        }
+    }
+
+
+
+    function RepeatRecovery (){
+
+        if (empty($this->request->all())) {
+            $result = array("Status"=>"Permise denied",
+                "Message"=>"Empty Params");
+            return response($result, 423);
+        } else {
+
+            //contamos los parametros
+            if (count($this->request->all())<=2) {
+                       /*
+                        $this ->request ["email"]= correo del usuario a recuperar
+                        $this ->request ["token"]= moondev(luego decidimos cual seria)
+                         */
+                        if (isset($this ->request ["email"])) {
+                            $result = $this->UserServ->RepeatRecovery($this->request->all());
+                            //De los datos recibidos tomamos el status de la cabecera y la asignamos a una variable
+                            $header=$result["header"];
+                            /* borramos el datos de su arreglo */
+                            unset($result["header"]);
+                            /* y retornamos los arreglos que obtuvimos de la peticion
+                            y el estado de la cabecera si es 200 ,404 etc..
+                             */
+                            return response($result,$header);
+                        } else {
+
+                            if(!isset($this->request["email"])){
+                                $missing[1]="email";
+                            }
+                            $result = array("Status"=>"Permise denied",
+                                "Message"=>["Missing Parameters"=>array_values($missing)]);
+                            return response($result, 423);
+                        }
+
+            } else {
+                $result = array("Status"=>"Permise denied",
+                                    "Message"=>"Many Params");
+                return response($result, 423);
+            }
+        }
+
+    }
+
+    
+
+}

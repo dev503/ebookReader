@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import {Button, Text, Thumbnail} from 'native-base';
 const {width} = Dimensions.get('window');
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const image = require('../img/CC-Cenpromype-09.png');
 const fondo = require('../img/CC-Cenpromype-04.png');
 const personIco = require('../img/CC-Cenpromype-12.png');
@@ -48,8 +50,10 @@ const Drawer = ({navigation}) => {
             <Image style={styles.iconButton} source={outIco} />
             <Text
               style={styles.textInputDown}
-              onPress={() => {
-                navigation.navigate('Login');
+              onPress={async() => {
+                // Eliminamos el token de sesión almacenado
+                await AsyncStorage.removeItem('session_token');
+                navigation.reset({index: 0, routes: [{name: 'Login'}]});
               }}>
               Salir
             </Text>

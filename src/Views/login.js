@@ -9,6 +9,7 @@ import {
   ToastAndroid
 } from 'react-native';
 import {Item, Button, Text, Thumbnail} from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
@@ -19,7 +20,7 @@ const Login = ({navigation}) => {
   const [password, setPassword] = useState('');
   // Función para mandar datos del login
   function sendDataLogin() {
-    // console.log(username, password);
+     console.log(username, password);
     axios
       .post('http://backoffice.moondevsv.com/Backend/public/user/search', {
         email: username,
@@ -28,8 +29,19 @@ const Login = ({navigation}) => {
         // password: '12345',
         token: '12345',
       })
-      .then((res) => {
-        navigation.reset({index: 0, routes: [{name: 'Dashboard1'}]});
+      .then(async (res) => {
+        // Aquí debería devolver la API un token
+        // Pero como está mal hecho no lo devuelve... pongámosle valor quemado
+        const sessionToken = '12345';
+
+        // Vamos a ocupar este paquete para Storage de la app
+        // https://github.com/react-native-async-storage/async-storage
+        
+        // Guardamos el token en una variable de AsyncStorage
+        await AsyncStorage.setItem('session_token', sessionToken);
+        // Ahora ya tenemos acceso a esa variable en todos los components desde el AsyncStorage
+
+        navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
       })
       .catch((err) => {
         console.error(err);
@@ -76,7 +88,7 @@ const Login = ({navigation}) => {
             </Text>
         </View>
           <View  style={styles.btncontainer}>
-            <Button rounded onPress={() => sendDataLogin() } style={styles.button}>
+            <Button rounded style={styles.button} onPress={() => sendDataLogin()} >
               <Text
                 style={{
                   fontFamily: 'Montserrat-Bold',
