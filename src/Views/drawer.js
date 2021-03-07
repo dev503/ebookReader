@@ -26,9 +26,13 @@ const Drawer = ({navigation}) => {
           <Thumbnail large source={image} style={styles.logoIco} />
         </View>
         <View style={{marginTop: 16}}>
-          <View style={styles.up}>
+         <View style={styles.up}>
             <Image style={styles.iconTop} source={personIco} />
             <Text style={styles.textInput}>Mi Perfil</Text>
+          </View>
+          <View style={styles.up}>
+            <Image style={styles.iconTop} source={fileIco} />
+            <Text style={styles.textInput}>Todas las publicaciones</Text>
           </View>
           <View style={styles.up}>
             <Image style={styles.iconTop} source={fileIco} />

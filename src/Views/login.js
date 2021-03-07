@@ -39,6 +39,8 @@ const Login = ({navigation}) => {
         
         // Guardamos el token en una variable de AsyncStorage
         await AsyncStorage.setItem('session_token', sessionToken);
+        await AsyncStorage.setItem('session_email', username);
+
         // Ahora ya tenemos acceso a esa variable en todos los components desde el AsyncStorage
 
         navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});

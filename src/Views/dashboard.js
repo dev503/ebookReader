@@ -17,9 +17,11 @@ import {
   Dimensions,
   DrawerLayoutAndroid,
   Image,
+  TouchableNativeFeedback,
+  ToastAndroid,
 } from 'react-native';
 import {SearchBar} from 'react-native-elements';
-import {Header, Left, Right, Button, Thumbnail} from 'native-base';
+import {Header, Left, Right, Button, Thumbnail, Icon} from 'native-base';
 import Drawer from './drawer';
 
 const logo = require('../img/CC-Cenpromype-10.png');
@@ -80,32 +82,75 @@ const Dashboard = ({navigation}) => {
     }
   };
 
+  const setFav = async ({item}) => {
+    console.log(item)
+    console.log("Este es el item")
+   axios
+    .post('http://backoffice.moondevsv.com/Backend/public/books/favorite', {
+      // Aquí obtenemos el token que está almacenado en AsyncStorage
+      token: await AsyncStorage.getItem('session_token'),
+      emailUser: await AsyncStorage.getItem('session_email'),
+      idBook: 1
+    })
+    .then((res) => {
+    console.log(res.data.Message)
+      ToastAndroid.showWithGravity(
+        res.data.Message,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
+      
+    })
+    .catch((err) => {
+      console.error(err);
+      ToastAndroid.showWithGravity(
+        res.data.Message,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
+    });
+  }
+
   const ItemView = ({item}) => {
+   
     return (
-      // Flat List Item
-      <TouchableOpacity
-        onPress={() => {
-          goToReader(item);
-        }}
-        style={styles.itemStyle}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image style={styles.iconTop} source={fileIco} />
-          <Text style={styles.text}>{item.title}</Text>
-          <View style={{flex: 1}}>
-            {/* <Text
-              style={{
-                fontWeight: 'bold',
-                textAlign: 'right',
-                alignSelf: 'stretch',
-              }}>
-              {item.author}
-            </Text> */}
-            <Text style={{textAlign: 'right', alignSelf: 'stretch'}}>
-              {item.size}
-            </Text>
+        <View>
+           <TouchableOpacity
+           //style={{ width:}}
+            onPress={() => {
+              setFav(item);
+            }}
+            style={{width:35}}
+            >
+              <Icon name='heart' style={{ iconColor: '#000',color: '#000',marginLeft : 1}}/>
+            </TouchableOpacity>
+
+          <TouchableOpacity
+          onPress={() => {
+            goToReader(item);
+          }}
+          style={styles.itemStyle}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image style={styles.iconTop} source={fileIco} />
+          
+            <Text style={styles.text}>{item.title}</Text>
+            <View style={{flex: 1}}>
+            
+              {/* <Text
+                style={{
+                  fontWeight: 'bold',
+                  textAlign: 'right',
+                  alignSelf: 'stretch',
+                }}>
+                {item.author}
+              </Text> */}
+              <Text style={{textAlign: 'right', alignSelf: 'stretch'}}>
+                {item.size}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   };
 
