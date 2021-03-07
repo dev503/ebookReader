@@ -24,34 +24,33 @@ import {SearchBar} from 'react-native-elements';
 import {Header, Left, Right, Button, Thumbnail, Icon} from 'native-base';
 import Drawer from './drawer';
 
-const logo = require('../img/CC-Cenpromype-25.png');
+const logo = require('../img/CC-Cenpromype-10.png');
 const menu = require('../img/CC-Cenpromype-17.png');
 const fileIco = require('../img/CC-Cenpromype-21.png');
 const {width} = Dimensions.get('window');
 
-const Dashboard = ({navigation}) => {
+const PersonalPubs = ({navigation}) => {
   const [searchString, setSearchString] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const drawer = useRef(null);
 
-      // A useEffect no le gusta recibir funciones asíncronas como callbacks
-    // así que hacemos una función asíncrona dentro...
-    const asyncWrapper = async () => {
-      axios
-        .post('http://backoffice.moondevsv.com/Backend/public/books/list', {
-          // Aquí obtenemos el token que está almacenado en AsyncStorage
-          token: await AsyncStorage.getItem('session_token'),
-        })
-        .then((res) => {
-          const booksList = res.data.data;
+  const asyncWrapper = async () => {
+    axios
+      .post('http://backoffice.moondevsv.com/Backend/public/books/favList', {
+        // Aquí obtenemos el token que está almacenado en AsyncStorage
+        token: await AsyncStorage.getItem('session_token'),
+        emailUser: await AsyncStorage.getItem('session_email'),
+      })
+      .then((res) => {
+        const booksList = res.data.data;
 
-          console.log(booksList);
-          setMasterDataSource(booksList);
-          setFilteredDataSource(booksList);
-        })
-        .catch((err) => console.log(err));
-    };
+        console.log(booksList);
+        setMasterDataSource(booksList);
+        setFilteredDataSource(booksList);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     // ... y la llamamos inmediatamente
@@ -94,7 +93,7 @@ const Dashboard = ({navigation}) => {
     })
     .then((res) => {
     console.log(res.data.Message)
-    
+    asyncWrapper()
       ToastAndroid.showWithGravity(
         res.data.Message,
         ToastAndroid.SHORT,
@@ -199,7 +198,7 @@ const Dashboard = ({navigation}) => {
       </View>
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.container}>
-          <SearchBar
+        <SearchBar
             round
             searchIcon={{size: 24}}
             onChangeText={(text) => searchFilterFunction(text)}
@@ -233,7 +232,6 @@ const Dashboard = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding:8
   },
   itemStyle: {
     padding: 10,
@@ -245,7 +243,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoIco: {
-    width: 0.7 * width,
+    width: 0.6 * width,
     height: 0.6 * width,
     marginBottom: 16
   },
@@ -261,14 +259,8 @@ const styles = StyleSheet.create({
     color: '#000000'
   },
   barra:{
-   color:'#007aff',
-   marginLeft:5,
-   backgroundColor: 'white',
-   borderWidth: 0, //no effect
-   shadowColor: 'white', //no effect
-   borderBottomColor: 'transparent',
-   borderTopColor: 'transparent'
+   
   }
 });
 
-export default Dashboard;
+export default PersonalPubs;

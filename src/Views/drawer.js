@@ -30,13 +30,17 @@ const Drawer = ({navigation}) => {
             <Image style={styles.iconTop} source={personIco} />
             <Text style={styles.textInput}>Mi Perfil</Text>
           </View>
-          <View style={styles.up}>
+          <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
-            <Text style={styles.textInput}>Todas las publicaciones</Text>
-          </View>
-          <View style={styles.up}>
+            <Text style={styles.textInput}  onPress={async() => {
+                navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
+              }}>Todas las publicaciones</Text>
+          </View> 
+          <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
-            <Text style={styles.textInput}>Mis publicaciones</Text>
+            <Text style={styles.textInput}  onPress={async() => {
+                navigation.reset({index: 0, routes: [{name: 'PersonalPubs'}]});
+              }}>Mis publicaciones</Text>
           </View>
         </View>
 

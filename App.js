@@ -5,6 +5,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import Dashboard from './src/Views/dashboard';
+import PersonalPubs from './src/Views/personalPubs';
 import Home from './src/Views/home';
 import Login from './src/Views/login';
 import Register from './src/Views/register';
@@ -24,6 +25,7 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="PersonalPubs" component={PersonalPubs} />
         <Stack.Screen name="Register" component={Register} options={{title: 'Registro'}}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="NewPassword" component={NewPassword} />
