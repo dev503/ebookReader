@@ -179,7 +179,7 @@ const PersonalPubs = ({navigation}) => {
     <DrawerLayoutAndroid
       ref={drawer}
       style={styles.drawers}
-      drawerPosition="right"
+      drawerPosition="left"
       renderNavigationView={() => {
         return <Drawer navigation={navigation} />;
       }}>
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
   },
   drawers: {
     flex: 1,
+    
   },
   logoIco: {
     width: 0.6 * width,

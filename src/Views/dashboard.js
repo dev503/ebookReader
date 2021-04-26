@@ -178,9 +178,10 @@ const Dashboard = ({navigation}) => {
 
   return (
     <DrawerLayoutAndroid
-      ref={drawer}
+      ref={drawer}  
       style={styles.drawers}
-      drawerPosition="right"
+      drawerPosition="left"
+     
       renderNavigationView={() => {
         return <Drawer navigation={navigation} />;
       }}>

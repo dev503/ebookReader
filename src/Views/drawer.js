@@ -75,10 +75,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    
   },
   background: {
     flex: 1,
     resizeMode: 'cover',
+    position : 'absolute' , 
+    top : 0 , 
+    height : Dimensions.get('window').height,
+    width : Dimensions.get('window').width
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start',
   },
