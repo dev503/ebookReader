@@ -129,16 +129,15 @@ const Register = ({navigation}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item style={styles.items}>
-              <View style={styles.container}>
+            <Item fixedLabel style={styles.items}>
                 <Label style={styles.label}>Sexo</Label>
                 <Picker
                   selectedValue={selectedGender}
                   style={{
-                    height: 30,
-                    width: 180,
+                    height: 40,
+                    width: 280,
                     marginHorizontal: 50,
-                    color: '#004fb4',
+                    color: '#fff',
                     fontSize: 15,
                   }}
                 
@@ -148,14 +147,19 @@ const Register = ({navigation}) => {
                   <Picker.Item label="Mujer" value="mujer" />
                   <Picker.Item label="Hombre" value="hombre" />
                 </Picker>
-              </View>
+              
             </Item>
-            <Item style={styles.items}>
-              <View style={{marginTop: 5}}>
+            <Item fixedLabel style={styles.items} style={{marginTop: 5}}>
+              <View >
                 <Label style={styles.label}>Fecha de nacimiento</Label>
                 <View >
                 <Text
-               
+                style={styles.label}
+                style={{
+                  height:40,
+                  marginTop:8,
+                  color: '#ffffff',
+                }}
                   onPress={() => {
                     setShowDatePicker(true);
                   }}>
@@ -222,11 +226,12 @@ const styles = StyleSheet.create({
   button:{
     alignSelf: 'stretch',
     marginTop: 16,
+    width: width-50,
     justifyContent: 'center', 
     backgroundColor: '#fff'
   },
   btncontainer:{
-    width: width,
+ 
     paddingHorizontal:  0.09 * width,
     marginTop: 16,
 },
@@ -253,10 +258,10 @@ const styles = StyleSheet.create({
 
    },
  
-  // label: {
-  //   fontSize: 15,
-  //   color: '#ffffff',
-  // },
+ label: {
+     fontSize: 18,
+    color: '#ffffff',
+  },
   textInput: {
     fontSize: 18,
     fontFamily: 'Montserrat-Bold',

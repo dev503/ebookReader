@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     position : 'absolute' , 
     top : 0 , 
     height : Dimensions.get('window').height,
-    width : Dimensions.get('window').width
+    width : Dimensions.get('window').width+180
     // justifyContent: 'flex-start',
     // alignItems: 'flex-start',
   },
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
     color: '#000000',
     marginLeft: 10,
+    width:  Dimensions.get('window').width
   },
   textInputDown: {
     fontFamily: 'Montserrat-Bold',

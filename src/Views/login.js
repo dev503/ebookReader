@@ -68,7 +68,7 @@ const Login = ({navigation}) => {
                 autoCorrect={false}
                 // autoFocus={true}
                 onChangeText={(value) => setUsername(value)}
-                placeholder="Correo/Usuario"
+                placeholder="Correo"
                 placeholderTextColor="#ffffff"
                 style= {styles.text}
               />
@@ -158,10 +158,12 @@ const styles = StyleSheet.create({
   button:{
     alignSelf: 'stretch',
     marginBottom: 16,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    
+    width: width-100,
+    
   },
   btncontainer:{
-    width: width,
     paddingHorizontal:  0.09 * width,
     marginTop: 16,
 
