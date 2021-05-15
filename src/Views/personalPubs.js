@@ -13,6 +13,7 @@ import {
   StyleSheet,
   View,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   Dimensions,
   DrawerLayoutAndroid,
@@ -126,7 +127,7 @@ const PersonalPubs = ({navigation}) => {
             style={{width:35,flexDirection: 'row', alignItems: 'center',marginLeft:5}}
             >
               
-              <Icon name='heart' style={{ iconColor: '#000',color: '#000',marginLeft : 1}}/>
+              <Icon name='heart' style={{color: '#000',marginLeft : 1}}/>
             </TouchableOpacity>
 
           <TouchableOpacity
@@ -184,13 +185,14 @@ const PersonalPubs = ({navigation}) => {
         return <Drawer navigation={navigation} />;
       }}>
       <Header transparent>
-        <Left></Left>
-
-        <Right>
-          <Button transparent onPress={() => drawer.current.openDrawer()}>
+        <Left>
+        <Button transparent onPress={() => drawer.current.openDrawer()}>
             {/* <Icon  name="menu" /> */}
             <Image source={menu} style={{width: 50, height: 50}}></Image>
-          </Button>
+        </Button>
+        </Left>
+
+        <Right>
         </Right>
       </Header>
       <View style={{alignItems: 'center'}}>
@@ -217,12 +219,14 @@ const PersonalPubs = ({navigation}) => {
               borderTopColor: 'transparent'
           }}
           />
-          <FlatList
-            data={filteredDataSource}
-            keyExtractor={(item) => item.id.toString()}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
-          />
+          <ScrollView>
+            <FlatList
+              data={filteredDataSource}
+              keyExtractor={(item) => item.id.toString()}
+              ItemSeparatorComponent={ItemSeparatorView}
+              renderItem={ItemView}
+            />
+          </ScrollView>
         </View>
       </SafeAreaView>
     </DrawerLayoutAndroid>

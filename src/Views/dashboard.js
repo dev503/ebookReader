@@ -13,6 +13,7 @@ import {
   StyleSheet,
   View,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   Dimensions,
   DrawerLayoutAndroid,
@@ -38,15 +39,20 @@ const Dashboard = ({navigation}) => {
       // A useEffect no le gusta recibir funciones asíncronas como callbacks
     // así que hacemos una función asíncrona dentro...
     const asyncWrapper = async () => {
+      console.log(await AsyncStorage.getItem('session_email'));
       axios
-        .post('http://backoffice.moondevsv.com/Backend/public/books/list', {
+       .post('http://backoffice.moondevsv.com/Backend/public/books/list', { 
+          /* .post('http://localhost/ebookReaderBackend/Backend/public/books/list', { */
+
           // Aquí obtenemos el token que está almacenado en AsyncStorage
           token: await AsyncStorage.getItem('session_token'),
+          email: await AsyncStorage.getItem('session_email'),
+
         })
         .then((res) => {
           const booksList = res.data.data;
 
-          console.log(booksList);
+         /* console.log(booksList);*/
           setMasterDataSource(booksList);
           setFilteredDataSource(booksList);
         })
@@ -63,7 +69,7 @@ const Dashboard = ({navigation}) => {
     // Check if searched text is not blank
     if (text) {
       // Inserted text is not blank
-      // Filter the masterDataSource
+      // Filter the masterDataSourcew
       // Update FilteredDataSource
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.title
@@ -83,7 +89,7 @@ const Dashboard = ({navigation}) => {
   };
 
   const setFav = async (item) => {
-    console.log(item)
+    console.log(item.id)
     console.log("Este es el item")
    axios
     .post('http://backoffice.moondevsv.com/Backend/public/books/favorite', {
@@ -100,6 +106,7 @@ const Dashboard = ({navigation}) => {
         ToastAndroid.SHORT,
         ToastAndroid.BOTTOM,
       );
+      asyncWrapper();
       
     })
     .catch((err) => {
@@ -127,7 +134,7 @@ const Dashboard = ({navigation}) => {
             style={{width:35,flexDirection: 'row', alignItems: 'center',marginLeft:5}}
             >
               
-              <Icon name='heart' style={{ iconColor: '#000',color: '#000',marginLeft : 1}}/>
+              <Icon name={item.isFav} style={{ color: '#000',marginLeft : 1}}/>
             </TouchableOpacity>
 
           <TouchableOpacity
@@ -186,13 +193,15 @@ const Dashboard = ({navigation}) => {
         return <Drawer navigation={navigation} />;
       }}>
       <Header transparent>
-        <Left></Left>
-
-        <Right>
+        <Left>
           <Button transparent onPress={() => drawer.current.openDrawer()}>
             {/* <Icon  name="menu" /> */}
             <Image source={menu} style={{width: 50, height: 50}}></Image>
           </Button>
+        </Left>
+
+        <Right>
+          
         </Right>
       </Header>
       <View style={{alignItems: 'center'}}>
@@ -219,12 +228,14 @@ const Dashboard = ({navigation}) => {
               borderTopColor: 'transparent'
           }}
           />
+          <ScrollView>
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}
           />
+          </ScrollView>
         </View>
       </SafeAreaView>
     </DrawerLayoutAndroid>
