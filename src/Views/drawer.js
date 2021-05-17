@@ -28,7 +28,9 @@ const Drawer = ({navigation}) => {
         <View style={{marginTop: 16}}>
          <View style={styles.up}>
             <Image style={styles.iconTop} source={personIco} />
-            <Text style={styles.textInput}>Mi Perfil</Text>
+            <Text style={styles.textInput}  onPress={async() => {
+                navigation.navigate('MyProfile',{index: 0, routes: [{name: 'MyProfile'}]});
+              }}>Mi Perfil</Text>
           </View>
           <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
@@ -39,7 +41,7 @@ const Drawer = ({navigation}) => {
           <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
             <Text style={styles.textInput}  onPress={async() => {
-                navigation.reset({index: 0, routes: [{name: 'PersonalPubs'}]});
+                navigation.navigate('PersonalPubs',{index: 0, routes: [{name: 'PersonalPubs'}]});
               }}>Mis publicaciones</Text>
           </View>
         </View>

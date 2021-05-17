@@ -12,6 +12,8 @@ import Register from './src/Views/register';
 import ForgotPassword from './src/Views/forgot-password.js';
 import NewPassword from './src/Views/new-password.js';
 import Reader from './src/Views/reader.js';
+import MyProfile from './src/Views/myprofile.js';
+
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -25,6 +27,7 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="MyProfile" component={MyProfile} />
         <Stack.Screen name="PersonalPubs" component={PersonalPubs} />
         <Stack.Screen name="Register" component={Register} options={{title: 'Registro'}}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
