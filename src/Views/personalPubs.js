@@ -111,7 +111,6 @@ const PersonalPubs = ({navigation}) => {
       );
     });
   }
-
   const ItemView = ({item}) => {
    
     return (
@@ -119,24 +118,15 @@ const PersonalPubs = ({navigation}) => {
           flex: 1,
           flexDirection: 'row'
         }}>
-           <TouchableOpacity
-           //style={{ width:}}
-            onPress={() => {
-              setFav(item);
-            }}
-            style={{width:35,flexDirection: 'row', alignItems: 'center',marginLeft:5}}
-            >
-              
-              <Icon name='heart' style={{color: '#000',marginLeft : 1}}/>
-            </TouchableOpacity>
-
+         
           <TouchableOpacity
+          style={{flex:1}}
           onPress={() => {
             goToReader(item);
           }}
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image style={styles.iconTop} source={fileIco} />
+          <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
           
             <Text style={styles.text}>{item.title}</Text>
             <View style={{flex: 1}}>
@@ -149,12 +139,20 @@ const PersonalPubs = ({navigation}) => {
                 }}>
                 {item.author}
               </Text> */}
-              <Text style={{textAlign: 'right', alignSelf: 'stretch'}}>
-                {item.size}
-              </Text>
+             
             </View>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+           //style={{ width:}}
+            onPress={() => {
+              setFav(item);
+            }}
+            style={{width:35,flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}
+            >
+              
+              <Icon name='heart' style={{ color: '#000',marginLeft : 1}}/>
+            </TouchableOpacity>
       </View>
     );
   };
@@ -242,6 +240,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Montserrat-Bold',
     color: '#000000',
+    flex:8
   },
   drawers: {
     flex: 1,
@@ -255,7 +254,7 @@ const styles = StyleSheet.create({
   iconTop: {
     width: 0.09 * width,
     height: 0.09 * width,
-    
+    marginRight: 10
   },
   text:{
     fontWeight: 'bold',
