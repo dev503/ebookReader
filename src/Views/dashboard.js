@@ -134,9 +134,14 @@ const Dashboard = ({navigation}) => {
           }}
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-          
-            <Text style={styles.text}>{item.title}</Text>
+            <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
+            <View style={{flexDirection: 'column'}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text Text style={styles.text}>{item.title}</Text> 
+                <Text style={styles.category}> {item.categoryName}</Text>
+              </View>
+              <Text style={styles.author}>{item.author}</Text>
+            </View>
             <View style={{flex: 1}}>
             
               {/* <Text
@@ -203,6 +208,7 @@ const Dashboard = ({navigation}) => {
           
         </Right>
       </Header>
+      <ScrollView>
       <View style={{alignItems: 'center'}}>
         <Thumbnail square large source={logo} style={styles.logoIco} />
       </View>
@@ -237,6 +243,7 @@ const Dashboard = ({navigation}) => {
           </ScrollView>
         </View>
       </SafeAreaView>
+      </ScrollView>
     </DrawerLayoutAndroid>
   );
 };
@@ -271,6 +278,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Montserrat-Bold',
     color: '#000000'
+  },
+  category:{
+    fontSize: 16,
+    color:'#007aff',
+  },
+  author:{
+    fontSize: 16,
+    fontFamily: 'Montserrat-Bold',
+
   },
   barra:{
    color:'#007aff',
