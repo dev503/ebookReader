@@ -8,7 +8,7 @@ const logo = require('../img/CC-Cenpromype-05.png');
 const image = require('../img/CC-Cenpromype_M1.png');
 
 const Home = ({navigation}) => {
-   /*useEffect(() => {
+   useEffect(() => {
    setTimeout(async () => {
       // Si encuentra el token redirige a Dashboard
       if (await AsyncStorage.getItem('session_token')) {
@@ -19,7 +19,7 @@ const Home = ({navigation}) => {
         navigation.reset({index: 0, routes: [{name: 'Login'}]});
       }
     }, 5 * 1000);
-  }, []);*/
+  }, []);
 
   return (
     <View style={styles.container}>
