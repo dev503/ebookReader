@@ -16,9 +16,16 @@ const {width} = Dimensions.get('window');
 const now = new Date();
 
 const Register = ({navigation}) => {
-  const [selectedGender, setSelectedGender] = useState('mujer');
+  const names='';
+  const asyncWrapper = async () => {
+    setName(await AsyncStorage.getItem('session_name'))
+    setSelectedDate(new Date(await AsyncStorage.getItem('session_birthday')))
+    setSelectedGender(await AsyncStorage.getItem('session_gender'))
+  };
+  
+  const [selectedGender, setSelectedGender] = useState('');
   const [username, setUsername] = useState('');
-  const [name, setName] = useState('');
+  const [name, setName] = useState(names);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -30,6 +37,7 @@ const Register = ({navigation}) => {
   /* Cuando sea que password o passwordConfirmation cambien se revisa a ver si coinciden */
   /* Sino coinciden se setea un error */
   useEffect(() => {
+    asyncWrapper();
     if (password !== passwordConfirmation) {
       if (error === '') {
         setError('Contraseñas no coinciden');
@@ -41,7 +49,9 @@ const Register = ({navigation}) => {
     }
   }, [password, passwordConfirmation]);
 
-  
+ 
+
+ 
 
   const sendData = async () => {
 
@@ -82,10 +92,10 @@ const Register = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-    <Header style={{backgroundColor: '#f48c1c'}}>
+    <Header style={{backgroundColor: '#f48c1c',height:100}}>
           <Left>
             <Button transparent onPress={() => navigation.navigate('Dashboard')}>
-             <Image source={flecha} style={{width: 50, height: 50}}></Image>
+             <Image source={flecha} style={{width: 50, height: 50, marginTop:50}}></Image>
             </Button>
           </Left>
          
@@ -103,6 +113,7 @@ const Register = ({navigation}) => {
             <Item fixedLabel style={styles.items}>
               <TextInput
                 autoCorrect={false}
+                value={name}
                 onChangeText={(value) => setName(value)}
                 style={styles.textInput}
                 placeholder="Nombre"
@@ -111,34 +122,38 @@ const Register = ({navigation}) => {
             </Item>
             
             <Item fixedLabel style={styles.items}>
-                <Label style={styles.label}>Sexo</Label>
+                <Label style={styles.label}>Genero</Label>
                 <Picker
                   selectedValue={selectedGender}
                   style={{
                     height: 40,
-                    width: 280,
-                    marginHorizontal: 50,
+                    marginHorizontal: 0,
                     color: '#fff',
                     fontSize: 15,
+                    flex: 0.8
                   }}
                 
                   onValueChange={(itemValue, itemIndex) =>
                     setSelectedGender(itemValue)
                   }>
-                  <Picker.Item label="Mujer" value="mujer" />
-                  <Picker.Item label="Hombre" value="hombre" />
+                  <Picker.Item label="Masculino" value="masculino" />
+                  <Picker.Item label="Femenino" value="femenino" />
+                  <Picker.Item label="Otro" value="otro" />
+
                 </Picker>
               
             </Item>
             <Item fixedLabel style={styles.items} style={{marginTop: 5}}>
+            <Label style={styles.label}>Fecha de nacimiento</Label>
+
               <View >
-                <Label style={styles.label}>Fecha de nacimiento</Label>
+                <Label style={{}}>Fecha de nacimiento</Label>
                 <View >
                 <Text
                 style={styles.label}
                 style={{
-                  height:40,
-                  marginTop:8,
+                  height:35,
+                  marginTop:15,
                   color: '#ffffff',
                 }}
                   onPress={() => {
@@ -234,12 +249,13 @@ const styles = StyleSheet.create({
  
  label: {
      fontSize: 18,
-    color: '#ffffff',
+     color: '#ffffff',
+     flex: 1
   },
   textInput: {
     fontSize: 18,
     fontFamily: 'Montserrat-Bold',
-    color: '#004fb4',
+    color: '#fff',
     marginBottom: 5
   },
 

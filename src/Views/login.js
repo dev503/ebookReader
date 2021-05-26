@@ -37,10 +37,15 @@ const Login = ({navigation}) => {
         // Vamos a ocupar este paquete para Storage de la app
         // https://github.com/react-native-async-storage/async-storage
         
+      
         // Guardamos el token en una variable de AsyncStorage
         await AsyncStorage.setItem('session_token', sessionToken);
         await AsyncStorage.setItem('session_email', username);
+        await AsyncStorage.setItem('session_name', res.data.data[0].name);
+        await AsyncStorage.setItem('session_birthday', res.data.data[0].birthdate);
+        await AsyncStorage.setItem('session_gender', res.data.data[0].gender);
 
+        
         // Ahora ya tenemos acceso a esa variable en todos los components desde el AsyncStorage
 
         navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});

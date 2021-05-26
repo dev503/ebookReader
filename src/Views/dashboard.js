@@ -135,14 +135,19 @@ const Dashboard = ({navigation}) => {
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-            <View style={{flexDirection: 'column'}}>
+            <View style={{flexDirection: 'column',flex:10}}>
               <View style={{flexDirection: 'row'}}>
                 <Text Text style={styles.text}>{item.title}</Text> 
                 <Text style={styles.category}> {item.categoryName}</Text>
               </View>
-              <Text style={styles.author}>{item.author}</Text>
+              <Text style={styles.author}>Autor: {item.author}</Text>
             </View>
-            <View style={{flex: 1}}>
+               
+            <View style={{flex:3}}>
+                <Text style={styles.date}> </Text>
+                <Text style={styles.date}>{item.publicationDate}</Text>
+            </View>
+            <View style={{flex: 0.01}}>
             
               {/* <Text
                 style={{
@@ -161,10 +166,10 @@ const Dashboard = ({navigation}) => {
             onPress={() => {
               setFav(item);
             }}
-            style={{width:35,flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}
+            style={{flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}
             >
               
-              <Icon name={item.isFav} style={{ color: '#000',marginLeft : 1}}/>
+              <Icon name={item.isFav} style={{ color: item.colorHeart, marginLeft : 1}}/>
             </TouchableOpacity>
       </View>
     );
@@ -277,7 +282,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     fontFamily: 'Montserrat-Bold',
-    color: '#000000'
+    color: '#616161'
   },
   category:{
     fontSize: 16,
@@ -286,7 +291,16 @@ const styles = StyleSheet.create({
   author:{
     fontSize: 16,
     fontFamily: 'Montserrat-Bold',
-
+    color: '#616161'
+  },
+  date:{
+    fontSize: 14,
+    fontFamily: 'Montserrat-Bold',
+    color: '#616161',
+    textAlign: 'right',
+    marginBottom:0,
+    padding:0,
+    justifyContent: 'flex-end'
   },
   barra:{
    color:'#007aff',
