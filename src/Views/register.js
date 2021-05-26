@@ -144,8 +144,9 @@ const Register = ({navigation}) => {
                   onValueChange={(itemValue, itemIndex) =>
                     setSelectedGender(itemValue)
                   }>
-                  <Picker.Item label="Mujer" value="mujer" />
-                  <Picker.Item label="Hombre" value="hombre" />
+                  <Picker.Item label="Masculino" value="masculino" />
+                  <Picker.Item label="Femenino" value="femenino" />
+                  <Picker.Item label="Otro" value="otro" />
                 </Picker>
               
             </Item>
