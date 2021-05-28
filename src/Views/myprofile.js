@@ -122,7 +122,7 @@ const Register = ({navigation}) => {
             </Item>
             
             <Item fixedLabel style={styles.items}>
-                <Label style={styles.label}>Genero</Label>
+                <Label style={styles.label}>Género</Label>
                 <Picker
                   selectedValue={selectedGender}
                   style={{

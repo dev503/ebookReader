@@ -9,13 +9,15 @@ import {
   ToastAndroid
 } from 'react-native';
 import {Item, Button, Text, Thumbnail} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const logo = require('../img/CC-Cenpromype-06.png');
 const fondo = require('../img/CC-Cenpromype-03.png');
 const {width} = Dimensions.get('window');
 
 const Login = ({navigation}) => {
+  const [hidePass, setHidePass] = useState(true);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   // Función para mandar datos del login
@@ -81,11 +83,17 @@ const Login = ({navigation}) => {
             <Item fixedLabel style={styles.items}>
            
               <TextInput
-                secureTextEntry={true}
+                secureTextEntry={hidePass ? true : false}
                 onChangeText={(value) => setPassword(value)}
                 placeholder="Contraseña"
                 placeholderTextColor="#ffffff"
-                style= {styles.text}
+                style= {styles.textInputPwd}
+              />
+              <Icon
+                name={hidePass ? 'eye-slash' : 'eye'}
+                size={15}
+                color="white"
+                onPress={() => setHidePass(!hidePass)}
               />
             </Item>
             <Text
@@ -171,8 +179,11 @@ const styles = StyleSheet.create({
   btncontainer:{
     paddingHorizontal:  0.09 * width,
     marginTop: 16,
-
- 
+  },textInputPwd:{
+    fontSize: 18,
+    fontFamily: 'Montserrat-Bold',
+    color: '#004fb4',
+    flex:1
 },
 });
 export default Login;
