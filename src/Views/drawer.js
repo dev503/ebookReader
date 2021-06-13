@@ -37,7 +37,7 @@ const Drawer = ({navigation}) => {
             <Text style={styles.textInput}  onPress={async() => {
                 navigation.reset({index: 0, routes: [{name: 'Dashboard'}]});
               }}>Todas las publicaciones</Text>
-          </View> 
+          </View>
           <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
             <Text style={styles.textInput}  onPress={async() => {

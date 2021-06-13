@@ -71,39 +71,13 @@ const Dashboard = ({navigation}) => {
       // Inserted text is not blank
       // Filter the masterDataSourcew
       // Update FilteredDataSource
-    
-      //Filtro por autor
-      var newData = masterDataSource.filter(function (item) {
+      const newData = masterDataSource.filter(function (item) {
         const itemData = item.author
           ? item.author.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-
-      //Filtro por categoria
-     if(newData.length==0){
-      newData = masterDataSource.filter(function (item) {
-        const itemData = item.categoryName
-          ? item.categoryName.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-     }
-   
-      //Filtro por titulo
-     if(newData.length==0){
-      newData = masterDataSource.filter(function (item) {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-     }
-
-
       setFilteredDataSource(newData);
       setSearchString(text);
     } else {
@@ -159,17 +133,18 @@ const Dashboard = ({navigation}) => {
             goToReader(item);
           }}
           style={styles.itemStyle}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-            <View style={{flexDirection: 'column',flex:12,padding:5}}>
+            <View style={{flexDirection: 'column',flex:10}}>
               <View style={{flexDirection: 'row'}}>
                 <Text Text style={styles.text}>{item.title}</Text> 
+                <Text style={styles.category}> {item.categoryName}</Text>
               </View>
-              <Text style={styles.category}> {item.categoryName}</Text>
               <Text style={styles.author}>Autor: {item.author}</Text>
             </View>
                
-            <View style={{flex:3,flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{flex:3}}>
+                <Text style={styles.date}> </Text>
                 <Text style={styles.date}>{item.publicationDate}</Text>
             </View>
             <View style={{flex: 0.01}}>
@@ -299,8 +274,8 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   iconTop: {
-    width: 0.19 * width,
-    height: 0.19 * width,
+    width: 0.09 * width,
+    height: 0.09 * width,
     marginRight: 10
   },
   text:{
@@ -310,9 +285,8 @@ const styles = StyleSheet.create({
     color: '#616161'
   },
   category:{
-    flex:1,
     fontSize: 16,
-    color:'#616161',
+    color:'#007aff',
   },
   author:{
     fontSize: 16,
@@ -320,7 +294,6 @@ const styles = StyleSheet.create({
     color: '#616161'
   },
   date:{
-    flex:1,
     fontSize: 14,
     fontFamily: 'Montserrat-Bold',
     color: '#616161',
