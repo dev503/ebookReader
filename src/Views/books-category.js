@@ -25,8 +25,10 @@ import {SearchBar} from 'react-native-elements';
 import {Header, Left, Right, Button, Thumbnail, Icon} from 'native-base';
 import Drawer from './drawer';
 
-const logo = require('../img/CC-Cenpromype-25.png');
+const logo = require('../img/CC-Cenpromype-26.png');
 const menu = require('../img/CC-Cenpromype-17.png');
+const category = require('../img/CC-Cenpromype-22.png');
+
 const fileIco = require('../img/CC-Cenpromype-21.png');
 const {width} = Dimensions.get('window');
 
@@ -159,7 +161,7 @@ const Dashboard = ({navigation}) => {
           }}
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
+            <Image style={styles.iconTop} source={category} />
             <View style={{flexDirection: 'column',flex:10}}>
               <View style={{flexDirection: 'row'}}>
                 <Text Text style={styles.text}>{item.title}</Text> 
