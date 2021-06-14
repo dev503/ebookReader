@@ -67,10 +67,12 @@ const Dashboard = ({navigation, route}) => {
         .then((res) => {
           const booksList = res.data.data;
 
-         //console.log(booksList);
+         console.log(booksList);
          setMasterDataSource(booksList);
          setFilteredDataSource(booksList);
-         searchFilterFunction(searchString,booksList)
+         if(searchString!=""){
+            searchFilterFunction(searchString,booksList)
+         }
           
           
         })
@@ -251,7 +253,7 @@ const Dashboard = ({navigation, route}) => {
                 <Text Text style={styles.text}>{item.title}</Text> 
               </View>
               <Text style={styles.category}>{item.categoryName}</Text>
-              <Text style={styles.author}>Autor: {item.author}</Text>
+              <Text style={styles.author}>{item.author}</Text>
             </View>
                
             <View style={{flex:3,flexDirection: 'row', alignItems: 'center'}}>
