@@ -44,6 +44,12 @@ const Drawer = ({navigation}) => {
                 navigation.navigate('PersonalPubs',{index: 0, routes: [{name: 'PersonalPubs'}]});
               }}>Mis publicaciones</Text>
           </View>
+          <View style={styles.up} >
+            <Image style={styles.iconTop} source={fileIco} />
+            <Text style={styles.textInput}  onPress={async() => {
+                navigation.navigate('BooksCategory',{index: 0, routes: [{name: 'BooksCategory'}]});
+              }}>Categorias</Text>
+          </View>
         </View>
 
         <View

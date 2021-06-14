@@ -39,9 +39,9 @@ const Dashboard = ({navigation}) => {
       // A useEffect no le gusta recibir funciones asíncronas como callbacks
     // así que hacemos una función asíncrona dentro...
     const asyncWrapper = async () => {
-      console.log(await AsyncStorage.getItem('session_email'));
+      console.log("Envio categoria");
       axios
-       .post('http://backoffice.moondevsv.com/Backend/public/books/list', { 
+       .post('https://backoffice.moondevsv.com/Backend/public/books/getallcategories', { 
           /* .post('http://localhost/ebookReaderBackend/Backend/public/books/list', { */
 
           // Aquí obtenemos el token que está almacenado en AsyncStorage
@@ -165,37 +165,13 @@ const Dashboard = ({navigation}) => {
                 <Text Text style={styles.text}>{item.title}</Text> 
                 <Text style={styles.category}> {item.categoryName}</Text>
               </View>
-              <Text style={styles.author}>Autor: {item.author}</Text>
+              
             </View>
                
-            <View style={{flex:3}}>
-                <Text style={styles.date}> </Text>
-                <Text style={styles.date}>{item.publicationDate}</Text>
-            </View>
-            <View style={{flex: 0.01}}>
-            
-              {/* <Text
-                style={{
-                  fontWeight: 'bold',
-                  textAlign: 'right',
-                  alignSelf: 'stretch',
-                }}>
-                {item.author}
-              </Text> */}
-             
-            </View>
+          
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-           //style={{ width:}}
-            onPress={() => {
-              setFav(item);
-            }}
-            style={{flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}
-            >
-              
-              <Icon name={item.isFav} style={{ color: item.colorHeart, marginLeft : 1}}/>
-            </TouchableOpacity>
+       
       </View>
     );
   };
@@ -214,7 +190,9 @@ const Dashboard = ({navigation}) => {
   };
 
   const goToReader = (book) => {
-    navigation.navigate('Reader', {url: book.url});
+    //navigation.navigate('Dashboard', {name: book.name});
+    navigation.reset({index: 0, routes: [{name: 'Dashboard',params: {name: book.name}}]}, {name: book.name});
+    
   };
 
   return (

@@ -30,11 +30,26 @@ const menu = require('../img/CC-Cenpromype-17.png');
 const fileIco = require('../img/CC-Cenpromype-21.png');
 const {width} = Dimensions.get('window');
 
-const Dashboard = ({navigation}) => {
-  const [searchString, setSearchString] = useState('');
+const Dashboard = ({navigation, route}) => {
+  var searchParam = "";
+  try {
+    searchParam = route.params.name;  
+    //setSearchString(route.params.name);  
+    console.log(route.params.name);
+  }
+  catch {
+  
+    console.log("No existe parametros")
+  }
+
+  const [searchString, setSearchString] = useState(searchParam);
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const drawer = useRef(null);
+ 
+  
+ 
+  
 
       // A useEffect no le gusta recibir funciones asíncronas como callbacks
     // así que hacemos una función asíncrona dentro...
@@ -52,9 +67,12 @@ const Dashboard = ({navigation}) => {
         .then((res) => {
           const booksList = res.data.data;
 
-         console.log(booksList);
-          setMasterDataSource(booksList);
-          setFilteredDataSource(booksList);
+         //console.log(booksList);
+         setMasterDataSource(booksList);
+         setFilteredDataSource(booksList);
+         searchFilterFunction(searchString,booksList)
+          
+          
         })
         .catch((err) => console.log(err));
     };
@@ -62,47 +80,114 @@ const Dashboard = ({navigation}) => {
   useEffect(() => {
     // ... y la llamamos inmediatamente
     // eso es para poder usar el await del AsyncStorage
-    asyncWrapper();
+  
+    if(asyncWrapper()){
+        try {
+              
+          //setSearchString(route.params.name);  
+          //console.log(route.params.name);
+          //console.log(masterDataSource);
+          //searchFilterFunction(""+route.params.name);
+      
+      
+        // object exists
+        }
+        catch {
+        
+          //console.log("No existe parametros")
+        }
+    }
+
+    
+
   }, []);
 
-  const searchFilterFunction = (text) => {
+  const searchFilterFunction = (text, booklist) => {
     // Check if searched text is not blank
     if (text) {
+
+
+      //setMasterDataSource(booklist);
+      //setFilteredDataSource(booklist);
+  
+
+    console.log("texto a buscar "+text)
+    //console.log(booklist)
+    console.log("masterDataSource")
+    console.log(masterDataSource.length)
+    console.log("masterDataSource")
+    console.log(booklist)
       // Inserted text is not blank
       // Filter the masterDataSourcew
       // Update FilteredDataSource
     
       //Filtro por autor
-      var newData = masterDataSource.filter(function (item) {
-        const itemData = item.author
-          ? item.author.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
 
-      //Filtro por categoria
-     if(newData.length==0){
-      newData = masterDataSource.filter(function (item) {
-        const itemData = item.categoryName
-          ? item.categoryName.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-     }
-   
-      //Filtro por titulo
-     if(newData.length==0){
-      newData = masterDataSource.filter(function (item) {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-     }
+      var newData = ""
+      if(masterDataSource.length!=0){
+        newData = masterDataSource.filter(function (item) {
+          const itemData = item.author
+            ? item.author.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+  
+        //Filtro por categoria
+       if(newData.length==0){
+        newData = masterDataSource.filter(function (item) {
+          const itemData = item.categoryName
+            ? item.categoryName.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+       }
+     
+        //Filtro por titulo
+       if(newData.length==0){
+        newData = masterDataSource.filter(function (item) {
+          const itemData = item.title
+            ? item.title.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+       }
+      } else {
+        newData = booklist.filter(function (item) {
+          const itemData = item.author
+            ? item.author.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+  
+        //Filtro por categoria
+       if(newData.length==0){
+        newData = booklist.filter(function (item) {
+          const itemData = item.categoryName
+            ? item.categoryName.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+       }
+     
+        //Filtro por titulo
+       if(newData.length==0){
+        newData = booklist.filter(function (item) {
+          const itemData = item.title
+            ? item.title.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+       }
+      }
+     
 
+    // console.log(newData)
 
       setFilteredDataSource(newData);
       setSearchString(text);
@@ -165,7 +250,7 @@ const Dashboard = ({navigation}) => {
               <View style={{flexDirection: 'row'}}>
                 <Text Text style={styles.text}>{item.title}</Text> 
               </View>
-              <Text style={styles.category}> {item.categoryName}</Text>
+              <Text style={styles.category}>{item.categoryName}</Text>
               <Text style={styles.author}>Autor: {item.author}</Text>
             </View>
                
@@ -260,7 +345,7 @@ const Dashboard = ({navigation}) => {
             containerStyle={{
               backgroundColor:"#FBFBFB",
               borderBottomColor: 'transparent',
-              borderTopColor: 'transparent'
+              borderTopColor: 'transparent',
           }}
           />
           <ScrollView>
