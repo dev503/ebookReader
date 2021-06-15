@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   category:{
     fontSize: 16,
-    color:'#007aff',
+    color:'#616161',
   },
   author:{
     fontSize: 16,
