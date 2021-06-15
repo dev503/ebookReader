@@ -248,28 +248,11 @@ const Dashboard = ({navigation, route}) => {
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row'}}>
             <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-            <View style={{flexDirection: 'column',flex:12,padding:5}}>
-              <View style={{flexDirection: 'row'}}>
-                <Text Text style={styles.text}>{item.title}</Text> 
-              </View>
+            <View style={{flexDirection: 'column',padding:10}}>
+              <Text Text style={styles.text}>{item.title}</Text> 
               <Text style={styles.category}>{item.categoryName}</Text>
               <Text style={styles.author}>{item.author}</Text>
-            </View>
-               
-            <View style={{flex:3,flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={styles.date}>{item.publicationDate}</Text>
-            </View>
-            <View style={{flex: 0.01}}>
-            
-              {/* <Text
-                style={{
-                  fontWeight: 'bold',
-                  textAlign: 'right',
-                  alignSelf: 'stretch',
-                }}>
-                {item.author}
-              </Text> */}
-             
+              <Text style={styles.date}>{item.publicationDate}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -411,10 +394,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Montserrat-Bold',
     color: '#616161',
-    textAlign: 'right',
+    textAlign: 'left',
     marginBottom:0,
-    padding:0,
-    justifyContent: 'flex-end'
+    padding:0
   },
   barra:{
    color:'#007aff',

@@ -42,7 +42,7 @@ const Drawer = ({navigation}) => {
             <Image style={styles.iconTop} source={fileIco} />
             <Text style={styles.textInput}  onPress={async() => {
                 navigation.navigate('BooksCategory',{index: 0, routes: [{name: 'BooksCategory'}]});
-              }}>Categorias</Text>
+              }}>Categorías</Text>
           </View>
           <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
