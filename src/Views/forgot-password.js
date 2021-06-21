@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   Dimensions,
+  ToastAndroid,
 } from 'react-native';
 import {
   Form,
@@ -34,12 +35,18 @@ const ForgotPassword = ({navigation}) => {
         'http://backoffice.moondevsv.com/Backend/public/user/forgotPassword',
         {
           // email: email,
-          email: 'mauricio25luna@gmail.com', //comentar esta linea y descomentar la anterior
+          email: email, //comentar esta linea y descomentar la anterior
           token: '12345',
         },
       )
       .then((res) => {
-        navigation.reset({
+        console.log(res);
+        ToastAndroid.showWithGravity(
+          res.data.Message,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+       navigation.reset({
           index: 0,
           routes: [
             {
@@ -50,6 +57,11 @@ const ForgotPassword = ({navigation}) => {
         });
       })
       .catch((err) => {
+        ToastAndroid.showWithGravity(
+          err.response.data.Message,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
         console.log(err);
       });
   }
@@ -88,8 +100,8 @@ const ForgotPassword = ({navigation}) => {
             rounded
             style={[styles.button, {backgroundColor: '#fff'}]}
             // Este onpress es provicional ya que no se puede pasar a la vista debido a error estaus 423
-            onPress={() => navigation.navigate('NewPassword')}>
-            {/* onPress={() => sendData()}> */}
+            onPress={ () => sendData() /*() => navigation.navigate('NewPassword')*/}>
+           
             <Text
               style={{
                 fontFamily: 'Montserrat-Bold',

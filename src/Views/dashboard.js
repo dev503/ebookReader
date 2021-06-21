@@ -242,28 +242,21 @@ const Dashboard = ({navigation, route}) => {
          
           <TouchableOpacity
           style={{flex:1}}
-          onPress={() => {
-            goToReader(item);
-          }}
+          onPress={() => { goToReader(item);}} 
           style={styles.itemStyle}>
-          <View style={{flexDirection: 'row'}}>
-            <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-            <View style={{flexDirection: 'column',padding:0}}>
-              <Text Text style={styles.text}>{item.title}</Text> 
-              <Text style={styles.category}>{item.categoryName}</Text>
-              <Text style={styles.author}>{item.author}</Text>
-              <Text style={styles.date}>{item.publicationDate}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Image style={styles.iconTop} source={{uri: item.pic_url}} />
+              <View style={{flexDirection: 'column',padding:0, marginEnd:width*0.2}}>
+                <Text Text style={styles.text}>{item.title}</Text> 
+                <Text style={styles.category}>{item.categoryName}</Text>
+                <Text style={styles.author}>{item.author}</Text>
+                <Text style={styles.date}>{item.publicationDate}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-           //style={{ width:}}
-            onPress={() => {
-              setFav(item);
-            }}
-            style={{flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}
-            >
-              
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => { setFav(item); }}
+            style={{flexDirection: 'row', alignItems: 'center',marginLeft:5,flex:1}}>
               <Icon name={item.isFav} style={{ color: item.colorHeart, marginLeft : 1}}/>
             </TouchableOpacity>
       </View>

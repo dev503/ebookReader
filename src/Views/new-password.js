@@ -21,6 +21,7 @@ const NewPassword = ({navigation, route}) => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const {email} = route.params || {};
   const [error, setError] = useState('');
+  console.log("Este es el email " +route.params.email);
 
   useEffect(() => {
     if (password !== passwordConfirmation) {
@@ -35,7 +36,6 @@ const NewPassword = ({navigation, route}) => {
   }, [passwordConfirmation]);
 
   function sendData() {
-    console.log(username, password);
     axios
       .post(
         'http://backoffice.moondevsv.com/Backend/public/user/ChangePassword',
@@ -43,16 +43,41 @@ const NewPassword = ({navigation, route}) => {
           new_password: password,
           code: code,
           token: '12345',
-          email: email,
+          mail: route.params.email,
         },
       )
       .then((res) => {
+        ToastAndroid.showWithGravity(
+          "Contraseña actualizada",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
         navigation.reset({index: 0, routes: [{name: 'Login'}]});
       })
       .catch((err) => {
+        let responsedata =""
         console.error(err);
+        if (err.response) {
+          // The request was made, but the server responded with a status code
+          // that falls out of the range of 2xx
+          responsedata = JSON.stringify(err.response.data)
+          responsedata = err.response.data.Message
+
+          //responsedata = responsedata.message
+          console.log(err.response.data);
+          //console.log(err.response.status);
+          //console.log(err.response.headers);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+         // console.log('Error', err.message);
+          responsedata = err.message
+
+        }
+
+        console.log(responsedata)
+
         ToastAndroid.showWithGravity(
-          'Error de red',
+          responsedata,
           ToastAndroid.SHORT,
           ToastAndroid.CENTER,
         );
@@ -67,7 +92,7 @@ const NewPassword = ({navigation, route}) => {
         <View style={styles.form}>
           {error.trim() != '' && <Text style={styles.error}>{error}</Text>}
           
-            <Text style={[styles.items, {marginTop: 16}]}>
+            <Text style={[styles.items, {marginTop: 16, marginBottom: 5}]}>
               Código de confirmación
             </Text>
            
@@ -89,22 +114,14 @@ const NewPassword = ({navigation, route}) => {
                 placeholderTextColor="#ffffff"
               />
             </Item>
-            <Item style={styles.items} fixedLabel>
-              <TextInput
-                secureTextEntry={true}
-                onChangeText={(value) => setPasswordConfirmation(value)}
-                style={styles.text}
-                placeholder="Confirmar contraseña"
-                placeholderTextColor="#ffffff"
-              />
-            </Item>
+           
           
         </View>
         <View style={styles.btncontainer}>
           <Button
             rounded
             style={[styles.button, {backgroundColor: '#fff'}]}
-            onPress={() => navigation.navigate('Login')}>
+            onPress={ () => sendData()  }>
             {/* onPress={() => sendData()}> */}
             <Text
               style={{

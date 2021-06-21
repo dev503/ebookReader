@@ -127,7 +127,7 @@ const PersonalPubs = ({navigation}) => {
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row'}}>
           <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-          <View style={{flexDirection: 'column', padding:0}}>
+          <View style={{flexDirection: 'column', padding:0, marginEnd:width*0.2}}>
               <Text Text style={styles.text}>{item.title}</Text> 
               <Text style={styles.category}>{item.categoryName}</Text>
               <Text style={styles.author}>{item.author}</Text>
