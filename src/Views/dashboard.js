@@ -248,7 +248,7 @@ const Dashboard = ({navigation, route}) => {
           style={styles.itemStyle}>
           <View style={{flexDirection: 'row'}}>
             <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-            <View style={{flexDirection: 'column',padding:10}}>
+            <View style={{flexDirection: 'column',padding:0}}>
               <Text Text style={styles.text}>{item.title}</Text> 
               <Text style={styles.category}>{item.categoryName}</Text>
               <Text style={styles.author}>{item.author}</Text>

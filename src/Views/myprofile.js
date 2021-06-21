@@ -94,13 +94,12 @@ const Register = ({navigation}) => {
     <View style={styles.container}>
     <Header style={{backgroundColor: '#f48c1c',height:100}}>
           <Left>
-            <Button transparent onPress={() => navigation.navigate('Dashboard')}>
+            <Button transparent onPress={() => navigation.navigate('Dashboard')} style={{width: 75, height: 75}}>
              <Image source={flecha} style={{width: 50, height: 50, marginTop:50}}></Image>
             </Button>
           </Left>
          
           <Right>
-          
           </Right>
         </Header>
       <ImageBackground source={fondo} style={styles.background}>

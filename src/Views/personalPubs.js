@@ -125,9 +125,9 @@ const PersonalPubs = ({navigation}) => {
             goToReader(item);
           }}
           style={styles.itemStyle}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
           <Image style={styles.iconTop} source={{uri: item.pic_url,}} />
-          <View style={{flexDirection: 'column',padding:10}}>
+          <View style={{flexDirection: 'column', padding:0}}>
               <Text Text style={styles.text}>{item.title}</Text> 
               <Text style={styles.category}>{item.categoryName}</Text>
               <Text style={styles.author}>{item.author}</Text>
@@ -246,8 +246,8 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   iconTop: {
-    width: 0.09 * width,
-    height: 0.09 * width,
+    width: 0.19 * width,
+    height: 0.19 * width,
     marginRight: 10
   },
   text:{
@@ -265,9 +265,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Bold',
     color: '#616161'
   },
+  date:{
+    flex:1,
+    fontSize: 14,
+    fontFamily: 'Montserrat-Bold',
+    color: '#616161',
+    textAlign: 'left',
+    marginBottom:0,
+    padding:0
+  },
   barra:{
-   
-  }
+    color:'#007aff',
+    marginLeft:5,
+    backgroundColor: 'white',
+    borderWidth: 0, //no effect
+    shadowColor: 'white', //no effect
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent'
+   }
 });
 
 export default PersonalPubs;

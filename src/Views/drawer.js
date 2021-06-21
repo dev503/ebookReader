@@ -42,13 +42,13 @@ const Drawer = ({navigation}) => {
             <Image style={styles.iconTop} source={fileIco} />
             <Text style={styles.textInput}  onPress={async() => {
                 navigation.navigate('BooksCategory',{index: 0, routes: [{name: 'BooksCategory'}]});
-              }}>Categorías</Text>
+              }}>Cuadernos de trabajo</Text>
           </View>
           <View style={styles.up} >
             <Image style={styles.iconTop} source={fileIco} />
             <Text style={styles.textInput}  onPress={async() => {
                 navigation.navigate('PersonalPubs',{index: 0, routes: [{name: 'PersonalPubs'}]});
-              }}>Mis publicaciones</Text>
+              }}>Mis favoritos</Text>
           </View>
         
         </View>
